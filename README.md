@@ -1,0 +1,1 @@
+# plugins-bulky-bulk-edit-products-for-woo

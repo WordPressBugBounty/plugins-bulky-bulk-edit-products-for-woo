@@ -5,7 +5,7 @@ Tags:  bulk edit products, ecommerce, woocommerce
 Requires PHP: 7.0
 Requires at least: 5.0
 Tested up to: 6.6
-WC tested up to: 9.0
+WC tested up to: 9.3
 Stable tag: trunk
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -263,6 +263,12 @@ You can bulk edit/update product properties including
 7. Bulk edit product variations
 
 == Changelog ==
+/** 1.2.7 - 2024.10.11**/
+- Updated: Retain newline characters in attribute value
+- Updated: Compatible with WP 6.6 and PHP 8.1 and WC 9.3
+- Fixed: Filter stock status for variation
+- Fixed: Save data
+
 /** 1.2.6 - 2024.07.18 **/
 - Fixed: Errors of function add attributes to products
 - Fixed: Automatically create slug when not duplicated

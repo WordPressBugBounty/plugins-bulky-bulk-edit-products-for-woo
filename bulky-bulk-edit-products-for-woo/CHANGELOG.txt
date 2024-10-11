@@ -1,3 +1,9 @@
+/** 1.2.7 - 2024.10.11**/
+- Updated: Retain newline characters in attribute value
+- Updated: Compatible with WP 6.6 and PHP 8.1 and WC 9.3
+- Fixed: Filter stock status for variation
+- Fixed: Save data
+
 /** 1.2.6 - 2024.07.18 **/
 - Fixed: Errors of function add attributes to products
 - Fixed: Automatically create slug when not duplicated

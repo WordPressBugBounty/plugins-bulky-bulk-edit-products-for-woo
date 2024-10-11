@@ -180,6 +180,9 @@ class Ajax {
 		remove_all_filters( 'woocommerce_product_object_query' );
 
 		$args   = $filter->set_args( $args );
+		if ( ! empty( $settings['variation_filter'] ) ) {
+			unset( $args['stock_status'] );
+		}
 		$result = wc_get_products( $args );
 
 		remove_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $this, 'orderby_price' ] );

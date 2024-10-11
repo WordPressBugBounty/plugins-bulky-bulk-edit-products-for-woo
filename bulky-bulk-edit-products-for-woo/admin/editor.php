@@ -514,6 +514,12 @@ class Editor {
 									] );
 
 									$this->setting_input_element( [
+										'type'  => 'get_pro_version',
+										'id'    => 'wrap_mode',
+										'label' => esc_html__( 'Wrap mode', 'bulky-bulk-edit-products-for-woo' ),
+									] );
+
+									$this->setting_input_element( [
 										'type'  => 'checkbox',
 										'id'    => 'variation_filter',
 										'label' => esc_html__( 'Filter include variation', 'bulky-bulk-edit-products-for-woo' ),

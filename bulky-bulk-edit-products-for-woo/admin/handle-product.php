@@ -602,8 +602,7 @@ class Handle_Product {
 				break;
 
 			default:
-				$meta_fields = get_option( 'vi_wbe_product_meta_fields' );
-
+				$meta_fields = get_option( 'vi_wbe_product_meta_fields',[] );
 				if ( in_array( $type, array_keys( $meta_fields ) ) ) {
 					$data_type = $meta_fields[ $type ]['input_type'] ?? '';
 					$pid       = $product->get_id();

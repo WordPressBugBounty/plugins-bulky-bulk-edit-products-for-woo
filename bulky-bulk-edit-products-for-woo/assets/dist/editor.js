@@ -2410,8 +2410,8 @@
                 } else {
                   pAttr.name = $(row).find('input.custom-attr-name').val();
                   let value = $(row).find('textarea.custom-attr-val').val();
-                  pAttr.value = value.trim().replace(/\s+/g, ' ');
-                  pAttr.options = value.split('|').map(item => item.trim().replace(/\s+/g, ' '));
+                  pAttr.value = value.trim().replace(/[^\S\n]+/g, ' ');
+                  pAttr.options = value.split('|').map(item => item.trim().replace(/[^\S\n]+/g, ' '));
                 }
                 pAttr.visible = !!$(row).find('.attr-visibility:checked').length;
                 pAttr.variation = !!$(row).find('.attr-variation:checked').length;
@@ -6229,12 +6229,11 @@
           if (functions.is_loading()) return;
 
           function saveStep(step = 0) {
-            let range = 30,
+            let range = 20,
                 start = step * range,
                 end = start + range,
                 products = productsForSave.slice(start, end),
-                lastStep = (step + 1) * range > productsForSave.length;
-
+                lastStep = step * range >= productsForSave.length;
 
             if ( products.length === 0 && $this.trash.length === 0 && $this.unTrash.length === 0 && step === 0 ) {
               functions.notice(functions.text('Nothing change to save'));

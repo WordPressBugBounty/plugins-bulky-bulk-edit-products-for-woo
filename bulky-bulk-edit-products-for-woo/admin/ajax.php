@@ -353,7 +353,7 @@ class Ajax {
 					}
 				}
 
-				if ( empty( $slug ) && ! empty( $title ) ) {
+				if ( empty( $slug ) && ! empty( $title ) && empty($product->get_slug('edit')) ) {
 					$product->set_slug( sanitize_title( $title ) );
 					$this->generate_unique_slug( $product );
 				}

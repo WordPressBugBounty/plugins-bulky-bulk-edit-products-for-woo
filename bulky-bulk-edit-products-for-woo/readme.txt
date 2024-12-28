@@ -5,7 +5,7 @@ Tags:  bulk edit products, ecommerce, woocommerce
 Requires PHP: 7.0
 Requires at least: 5.0
 Tested up to: 6.7
-WC tested up to: 9.4
+WC tested up to: 9.5
 Stable tag: trunk
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -263,6 +263,9 @@ You can bulk edit/update product properties including
 7. Bulk edit product variations
 
 == Changelog ==
+/** 1.2.9 - 2024.12.28**/
+- Fixed: Can not save edited content sometimes
+
 /** 1.2.8 - 2024.11.23**/
 - Updated: Compatible with WC 9.4 and WP 6.7
 - Fixed: Errors from customers' feedback

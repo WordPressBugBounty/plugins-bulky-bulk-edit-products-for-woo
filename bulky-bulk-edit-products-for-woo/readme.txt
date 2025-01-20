@@ -243,7 +243,7 @@ You can bulk edit/update product properties including
 
 &#9658; [Project Page](https://villatheme.com)
 &#9658; [Documentation](https://docs.villatheme.com/?item=bulky-woocommerce-bulk-edit-products)
-&#9658; [Report Bugs/Issues](https://villatheme.com/supports)
+&#9658; [Report Bugs/Issues](https://villatheme.com/knowledge-base/security-is-our-priority/)
 
 == Installation ==
 

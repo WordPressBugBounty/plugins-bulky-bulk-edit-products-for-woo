@@ -25,7 +25,7 @@ class Support {
 		new \VillaTheme_Support(
 			array(
 				'support'    => 'https://wordpress.org/support/plugin/bulky-bulk-edit-products-for-woo',
-				'docs'       => 'http://docs.villatheme.com/?item=bulky-bulk-edit-products-for-woo',
+				'docs'       => 'https://docs.villatheme.com/?item=bulky-woocommerce-bulk-edit-products',
 				'review'     => 'https://wordpress.org/support/plugin/bulky-bulk-edit-products-for-woo/reviews/?rate=5#rate-response',
 				'css'        => BULKY_CONST_F['dist_url'],
 				'image'      => BULKY_CONST_F['img_url'],
@@ -55,7 +55,7 @@ class Support {
 
 	public static function get_pro_version() {
 		printf( '<a class="vi-ui button tiny" href="%s" target="_blank">%s</a>',
-			esc_url( BULKY_CONST_F['pro_url'] ), esc_html__( 'Pro version', 'bulky-bulk-edit-products-for-woo' ) );
+			esc_url( BULKY_CONST_F['pro_url'] ), esc_html__( 'Upgrade This Feature', 'bulky-bulk-edit-products-for-woo' ) );
 	}
 
 }

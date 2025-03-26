@@ -2977,17 +2977,17 @@ const _f = {
     getProductTypeFromCell(cell) {
         let y = cell.getAttribute('data-y');
         let x = this.getColFromColumnType('product_type');
-        return this.jexcel.options.data[y][x];
+        return this.jexcel.options.data[y] ? this.jexcel.options.data[y][x] : null;
     },
 
     getProductTypeFromY(y) {
         let x = this.getColFromColumnType('product_type');
-        return this.jexcel.options.data[y][x];
+        return this.jexcel.options.data[y] ? this.jexcel.options.data[y][x] : null;
     },
 
     getReviewTypeFrom(y) {
         let x = this.getColFromColumnType('comment_type');
-        return this.jexcel.options.data[y][x];
+        return this.jexcel.options.data[y] ? this.jexcel.options.data[y][x] : null;
     },
 
     getColumnType(x) {
@@ -3533,7 +3533,6 @@ const Sidebar = {
 
         this.sidebar.on('change', '.vi-wbe-meta-column-type', this.metaFieldChangeType);
         this.sidebar.on('keyup', '.vi-wbe-search-metakey', this.searchMetaKey);
-
         this.filter();
         this.settings();
         this.metafields();
@@ -3547,7 +3546,6 @@ const Sidebar = {
             filterInput = sidebar_$('.vi-wbe-filter-input'),
             cssTop = {top: -2},
             cssMiddle = {top: '50%'};
-
         filterInput.each((i, el) => {
             if (sidebar_$(el).val()) sidebar_$(el).parent().prev().css(cssTop);
         });
@@ -3564,13 +3562,42 @@ const Sidebar = {
             sidebar_$(this).next().trigger('focus');
         });
 
-        let clearableFilter = filterForm.find('.vi-wbe.vi-ui.dropdown').dropdown({clearable: true, fullTextSearch: true}),
-            compactFilter = filterForm.find('.vi-ui.compact.dropdown').dropdown();
+        let compactFilter = filterForm.find('.vi-ui.compact.dropdown').dropdown();
+        filterForm.find('.vi-wbe.vi-ui.dropdown:not(.vi-wbe-filter-select2)').dropdown({clearable: true, fullTextSearch: true});
+        filterForm.find('.vi-wbe.vi-ui.dropdown.vi-wbe-filter-select2').each(function (k,v){
+            let tmp_placeholder = sidebar_$(v).data('placeholder'),taxonomy_type = sidebar_$(v).attr('id').replace('vi-wbe-','');
+            sidebar_$(v).select2({
+                placeholder: tmp_placeholder,
+                closeOnSelect: false,
+                multiple: true,
+                minimumInputLength: 2,
+                ajax: {
+                    url: wbeParams.ajaxUrl,
+                    dataType: 'json',
+                    type: "POST",
+                    quietMillis: 50,
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            action: 'vi_wbe_ajax',
+                            vi_wbe_nonce: wbeParams.nonce,
+                            sub_action: 'search_taxonomy',
+                            taxonomy_type: taxonomy_type,
+                            search: params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {results: data};
+                    },
+                },
+            });
+        });
 
         this.sidebar.on('click', '.vi-wbe-clear-filter', function () {
             sidebar_$('.vi-wbe-filter-label').css(cssMiddle);
             filterInput.val('');
-            clearableFilter.dropdown('clear');
+            filterForm.find('div.vi-wbe.vi-ui.dropdown').dropdown('clear');
+            filterForm.find('select.vi-wbe.vi-ui.dropdown').val(null).trigger('change');
             compactFilter.find('.menu .item:first').trigger('click');
         });
 
@@ -5064,6 +5091,7 @@ jQuery(document).ready(function ($) {
             this.sidebar.on('afterAddFilter', this.afterAddFilter.bind(this));
             this.sidebar.on('afterSaveSettings', this.afterSaveSettings.bind(this));
             this.sidebar.on('click', '.vi-wbe-close-sidebar', this.closeMenu.bind(this));
+            this.sidebar.on('change', '#vi-wbe-edit_fields, #vi-wbe-exclude_edit_fields', this.toggleSortFields.bind(this));
 
             this.init();
 
@@ -5162,13 +5190,15 @@ jQuery(document).ready(function ($) {
                     break;
 
                 case 'post_date':
+                    let x = functions.getColFromColumnType('status');
+                    if (!thisRow.find(`td[data-x='${x}']`).length){
+                        break;
+                    }
                     let value = data.value,
-                        x = functions.getColFromColumnType('status'),
                         cell = thisRow.find(`td[data-x='${x}']`).get(0),
                         time = (new Date(value)).getTime(),
                         now = Date.now(),
                         status = time > now ? 'future' : 'publish';
-
                     this.WorkBook.setValue(cell, status);
 
                     break;
@@ -6115,6 +6145,24 @@ jQuery(document).ready(function ($) {
                 currentTab.trigger('click');
             }
         }
+        toggleSortFields(e) {
+            let $sort_fields = this.sidebar.find('#bulky-sort-fields'),
+                exclude = this.sidebar.find('#vi-wbe-exclude_edit_fields').val(),
+                include = this.sidebar.find('#vi-wbe-edit_fields').val();
+            if (include.length){
+                $sort_fields.find('.bulky-sort-field').addClass('vi-wbe-hidden');
+                $.each(include, function (k,v) {
+                    $sort_fields.find('.bulky-sort-field-'+v).removeClass('vi-wbe-hidden');
+                });
+            }else {
+                $sort_fields.find('.bulky-sort-field').removeClass('vi-wbe-hidden');
+            }
+            if (exclude.length){
+                $.each(exclude, function (k,v) {
+                    $sort_fields.find('.bulky-sort-field-'+v).addClass('vi-wbe-hidden');
+                });
+            }
+        }
 
         addNewProduct() {
             if (functions.is_loading()) return;
@@ -6422,12 +6470,18 @@ jQuery(document).ready(function ($) {
             this.WorkBook.setData();
             this.pagination(data.max_num_pages, 1);
             this.WorkBook.orderAfterLoad();
+            this.sidebar.find('.vi-wbe-close-sidebar').trigger('click');
             if (!data.products.length) functions.notice(functions.text('No item was found'))
         }
 
         afterSaveSettings(ev, data) {
             if (data.fieldsChange) {
                 this.loadProducts(this.getCurrentPage(), true);
+            }
+            if (data?.fieldsRefresh){
+                this.menubar.find('.vi-wbe-get-product').trigger('click');
+            }else {
+                this.sidebar.find('.vi-wbe-close-sidebar').trigger('click');
             }
         }
 

@@ -51,7 +51,19 @@ class Enqueue {
 
 	public function admin_enqueue_scripts() {
 		$screen_id = get_current_screen()->id;
+		if ( strpos( $screen_id, 'bulky_page_vi_wbe_' ) !== 0 && $screen_id !== 'toplevel_page_vi_wbe_bulk_editor' ) {
+			if ( $screen_id == 'edit-product' ) {
+				$this->register_scripts( [ 'admin' => [ 'jquery' ] ] );
+				$this->enqueue_scripts( 'admin' );
+				$params = [
+					'url'  => admin_url( 'admin.php?page=vi_wbe_bulk_editor' ),
+					'text' => esc_html__( 'Go to Bulk Editor page', 'bulky-bulk-edit-products-for-woo' ),
+				];
 
+				wp_localize_script( BULKY_CONST_F['assets_slug'] . 'admin', 'viWbeParams', $params );
+			}
+			return;
+		}
 		$this->register_styles( 'header,tab,menu,segment,form,table,checkbox,dropdown,transition,popup,accordion,select2,button,input,label,list,dimmer,modal,message,icon,jsoneditor,jsuite,jexcel', true );
 
 		$this->register_styles( 'editor,settings' );
@@ -125,22 +137,16 @@ class Enqueue {
 				] );
 
 				break;
+			case 'bulky_page_vi_wbe_edit_orders':
+			case 'bulky_page_vi_wbe_edit_coupons':
+			case 'bulky_page_vi_wbe_edit_reviews':
+				$this->enqueue_styles('settings');
+				break;
 
 			case 'bulky_page_vi_wbe_settings':
 				$this->enqueue_styles( 'form,icon,input,menu,tab,checkbox,button,segment,settings' );
 				$this->enqueue_scripts( 'tab,settings' );
 				break;
-		}
-
-		if ( $screen_id == 'edit-product' ) {
-			$this->register_scripts( [ 'admin' => [ 'jquery' ] ] );
-			$this->enqueue_scripts( 'admin' );
-			$params = [
-				'url'  => admin_url( 'admin.php?page=vi_wbe_bulk_editor' ),
-				'text' => esc_html__( 'Go to Bulk Editor page', 'bulky-bulk-edit-products-for-woo' ),
-			];
-
-			wp_localize_script( BULKY_CONST_F['assets_slug'] . 'admin', 'viWbeParams', $params );
 		}
 	}
 

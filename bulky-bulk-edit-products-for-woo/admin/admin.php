@@ -2,6 +2,8 @@
 
 namespace BULKY\Admin;
 
+use BULKY\Includes\Support;
+
 defined( 'ABSPATH' ) || exit;
 
 class Admin {
@@ -28,11 +30,46 @@ class Admin {
 		);
 
 		add_submenu_page( 'vi_wbe_bulk_editor',
-			esc_html__( 'Products Bulk Editor', 'bulky-bulk-edit-products-for-woo' ),
-			esc_html__( 'Products Bulk Editor', 'bulky-bulk-edit-products-for-woo' ),
+			esc_html__( 'Edit Products', 'bulky-bulk-edit-products-for-woo' ),
+			esc_html__( 'Edit Products', 'bulky-bulk-edit-products-for-woo' ),
 			BULKY_CONST_F['capability'],
 			'vi_wbe_bulk_editor',
 			[ Editor::instance(), 'editor' ]
 		);
+		add_submenu_page( 'vi_wbe_bulk_editor',
+			esc_html__( 'Edit Orders', 'bulky-bulk-edit-products-for-woo' ),
+			esc_html__( 'Edit Orders', 'bulky-bulk-edit-products-for-woo' ),
+			BULKY_CONST_F['capability'],
+			'vi_wbe_edit_orders',
+			[ $this, 'pro_edit_page' ]
+		);
+		add_submenu_page( 'vi_wbe_bulk_editor',
+			esc_html__( 'Edit Coupons', 'bulky-bulk-edit-products-for-woo' ),
+			esc_html__( 'Edit Coupons', 'bulky-bulk-edit-products-for-woo' ),
+			BULKY_CONST_F['capability'],
+			'vi_wbe_edit_coupons',
+			[ $this, 'pro_edit_page' ]
+		);
+		add_submenu_page( 'vi_wbe_bulk_editor',
+			esc_html__( 'Edit Reviews', 'bulky-bulk-edit-products-for-woo' ),
+			esc_html__( 'Edit Reviews', 'bulky-bulk-edit-products-for-woo' ),
+			BULKY_CONST_F['capability'],
+			'vi_wbe_edit_reviews',
+			[ $this, 'pro_edit_page' ]
+		);
+	}
+	public function pro_edit_page(){
+		$page = isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) :'';
+		$img = 'preview-'.str_replace('vi_wbe_edit_','', $page);
+		?>
+		<div class="wrap">
+            <div class="viweb-preview-pro-feature-wrap">
+                <img src="<?php echo esc_url(BULKY_CONST_F['img_url'].$img.'.png') ?>" alt="<?php echo esc_attr($img) ?>">
+                <div class="viweb-preview-pro-button">
+                    <?php Support::get_pro_version(); ?>
+                </div>
+            </div>
+		</div>
+		<?php
 	}
 }

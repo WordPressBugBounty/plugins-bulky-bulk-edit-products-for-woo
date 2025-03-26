@@ -99,11 +99,15 @@ class Ajax {
 
 		if ( isset( $_POST['fields'] ) ) {
 			wp_parse_str( $_POST['fields'], $new_options );
+			$option_name ='vi_wbe_settings';
 			$user_id = get_current_user_id();
-			$user_option = get_user_meta( $user_id, 'vi_wbe_settings', true );
-
+			if ($user_id){
+				$old_options = get_user_meta($user_id, $option_name, true);
+			}
+			if (empty($old_options) || !is_array($old_options)) {
+				$old_options = get_option($option_name );
+			}
 			$new_options = wc_clean( $new_options );
-			$old_options = empty( $user_option ) ? get_option( 'vi_wbe_settings' ) : $user_option;
 
 			$old_edit_fields         = $old_options['edit_fields'] ?? [];
 			$new_edit_fields         = $new_options['edit_fields'] ?? [];
@@ -112,13 +116,18 @@ class Ajax {
 
 			$edit_fields_compare         = ! empty( array_merge( array_diff( $old_edit_fields, $new_edit_fields ), array_diff( $new_edit_fields, $old_edit_fields ) ) );
 			$exclude_edit_fields_compare = ! empty( array_merge( array_diff( $old_exclude_edit_fields, $new_exclude_edit_fields ), array_diff( $new_exclude_edit_fields, $old_exclude_edit_fields ) ) );
-
-			update_option( 'vi_wbe_settings', $new_options );
-			update_user_meta( $user_id, 'vi_wbe_settings', $new_options );
+			if ($user_id){
+				update_user_meta( $user_id, $option_name, $new_options );
+			}else {
+				update_option( $option_name, $new_options );
+			}
 
 			wp_send_json_success( [
 				'settings'     => $new_options,
-				'fieldsChange' => $edit_fields_compare || $exclude_edit_fields_compare
+				'fieldsChange' => $edit_fields_compare || $exclude_edit_fields_compare,
+				'fieldsRefresh' => (($old_options['order_by'] != $new_options['order_by'])||
+				                    ($old_options['order'] != $new_options['order'])||
+				                    ($old_options['load_variations'] != $new_options['load_variations']))
 			] );
 		}
 

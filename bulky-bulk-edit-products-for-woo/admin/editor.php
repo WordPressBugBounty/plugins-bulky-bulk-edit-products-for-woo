@@ -464,8 +464,11 @@ class Editor {
 									$this->setting_input_element( [
 										'type'  => 'get_pro_version',
 										'id'    => 'products_per_page',
-										'min'   => 1,
-										'max'   => 50,
+										'label' => esc_html__( 'Sort fields', 'bulky-bulk-edit-products-for-woo' )
+									] );
+									$this->setting_input_element( [
+										'type'  => 'get_pro_version',
+										'id'    => 'products_per_page',
 										'label' => esc_html__( 'Products per page (default: 10)', 'bulky-bulk-edit-products-for-woo' )
 									] );
 

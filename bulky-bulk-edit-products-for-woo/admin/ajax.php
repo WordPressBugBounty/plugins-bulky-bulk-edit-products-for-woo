@@ -267,7 +267,7 @@ class Ajax {
 			'products'      => $products_data,
 			'count'         => $count,
 			'max_num_pages' => $max_num_pages,
-			'img_storage'   => $img_storage,
+			'img_storage'   => apply_filters( 'bulky_image_storage', $img_storage ),
 		];
 
 		if ( ! empty( $_POST['re_create'] ) ) {

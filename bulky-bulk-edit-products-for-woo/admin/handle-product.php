@@ -339,7 +339,7 @@ class Handle_Product {
 			}
 		}
 
-		return $p_data;
+		return apply_filters('bulky_get_product_data',$p_data,$product, $fields);
 	}
 
 	public function get_product_data_for_edit( $product ) {
@@ -615,6 +615,7 @@ class Handle_Product {
 				}
 				break;
 		}
+		do_action('bulky_parse_product_data_to_save', $product, $type, $value);
 
 	}
 

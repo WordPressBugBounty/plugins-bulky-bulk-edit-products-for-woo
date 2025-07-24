@@ -511,7 +511,7 @@
   margin-bottom: 5px;
   background-color: white;
 }
-#vi-wbe-spreadsheet .vi-wbe-gallery-images .vi-wbe-gallery-image img {
+#vi-wbe-spreadsheet .vi-wbe-gallery-images .vi-wbe-gallery-image img, #vi-wbe-spreadsheet .vi-wbe-gallery-images .vi-wbe-gallery-image video {
   width: 95%;
   max-width: 100%;
   padding: 0;

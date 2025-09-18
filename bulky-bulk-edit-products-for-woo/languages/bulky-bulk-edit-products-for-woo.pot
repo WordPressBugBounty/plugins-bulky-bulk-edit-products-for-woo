@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bulky - Bulk Edit Products fo Woo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-26 01:25+0000\n"
+"POT-Creation-Date: 2025-09-18 04:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -53,7 +53,7 @@ msgstr ""
 msgid "All fields"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:196
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:197
 msgid "Allow backorder"
 msgstr ""
 
@@ -69,7 +69,7 @@ msgstr ""
 msgid "Attribute"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:119
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:120
 msgid "Attributes"
 msgstr ""
 
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Bulky - Bulk Edit Products for WooCommerce"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:146
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:147
 msgid "Button text"
 msgstr ""
 
@@ -106,12 +106,12 @@ msgid "Calculator"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:388
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:275
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:276
 msgid "Catalog visibility"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:394
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:203
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:204
 msgid "Categories"
 msgstr ""
 
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Create variations from all attributes"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:225
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:226
 msgid "Cross-sells"
 msgstr ""
 
@@ -147,7 +147,7 @@ msgstr ""
 msgid "day(s)"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:126
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:127
 msgid "Default attributes"
 msgstr ""
 
@@ -155,28 +155,28 @@ msgstr ""
 msgid "Delete selected rows"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:112
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:113
 msgid "Description"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:156
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:157
 msgid "Disable"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:236
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:237
 msgid "Download expiry"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:231
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:232
 msgid "Download file"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:235
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:236
 msgid "Download limit"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:351
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:227
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:228
 msgid "Downloadable"
 msgstr ""
 
@@ -221,11 +221,11 @@ msgstr ""
 msgid "Empty"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:155
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:156
 msgid "Enable"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:268
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:269
 msgid "Enable reviews"
 msgstr ""
 
@@ -258,7 +258,7 @@ msgid "Exit full screen"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:337
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:161
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:162
 msgid "Featured"
 msgstr ""
 
@@ -292,7 +292,7 @@ msgstr ""
 msgid "Full screen"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:114
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:115
 msgid "Gallery"
 msgstr ""
 
@@ -304,11 +304,15 @@ msgstr ""
 msgid "Go to edit product page"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:133
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:134
 msgid "Grouped"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:222
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:102
+msgid "GTIN, UPC, EAN, or ISBN"
+msgstr ""
+
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:223
 msgid "Height"
 msgstr ""
 
@@ -353,7 +357,7 @@ msgstr ""
 msgid "Lenght to"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:220
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:221
 msgid "Length"
 msgstr ""
 
@@ -365,11 +369,11 @@ msgstr ""
 msgid "Load variations"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:193
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:194
 msgid "Manage stock"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:267
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:268
 msgid "Menu order"
 msgstr ""
 
@@ -405,11 +409,11 @@ msgstr ""
 msgid "No round"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:283
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:284
 msgid "No shipping class"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:249
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:250
 msgid "None"
 msgstr ""
 
@@ -445,7 +449,7 @@ msgstr ""
 msgid "Order by"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:160
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:161
 msgid "Password"
 msgstr ""
 
@@ -489,7 +493,7 @@ msgstr ""
 msgid "Product type"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:140
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:141
 msgid "Product URL"
 msgstr ""
 
@@ -501,7 +505,7 @@ msgstr ""
 msgid "Publish"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:108
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:109
 msgid "Publish date"
 msgstr ""
 
@@ -509,11 +513,11 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:266
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:267
 msgid "Purchase note"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:166
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:167
 msgid "Regular price"
 msgstr ""
 
@@ -554,16 +558,16 @@ msgid "Round with decimal"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:220
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:182
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:183
 msgid "Sale date from"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:225
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:189
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:190
 msgid "Sale date to"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:174
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:175
 msgid "Sale price"
 msgstr ""
 
@@ -576,7 +580,7 @@ msgid "Sale price to"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:74
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:284
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:285
 msgid "Same as parent"
 msgstr ""
 
@@ -636,31 +640,31 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:282
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:283
 msgid "Shipping class"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:248
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:249
 msgid "Shipping only"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:113
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:114
 msgid "Short Desc"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:164
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:493
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:102
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:103
 msgid "SKU"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:157
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:103
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:104
 msgid "Slug"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:360
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:197
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:198
 msgid "Sold individually"
 msgstr ""
 
@@ -668,11 +672,11 @@ msgstr ""
 msgid "Sort fields"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:152
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:153
 msgid "Status"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:194
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:195
 msgid "Stock"
 msgstr ""
 
@@ -685,7 +689,7 @@ msgid "Stock quantity to"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:331
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:195
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:196
 msgid "Stock status"
 msgstr ""
 
@@ -695,19 +699,19 @@ msgid "Stock: %d"
 msgstr ""
 
 #: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/admin/editor.php:402
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:212
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:213
 msgid "Tags"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:257
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:258
 msgid "Tax class"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:245
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:246
 msgid "Tax status"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:247
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:248
 msgid "Taxable"
 msgstr ""
 
@@ -725,7 +729,7 @@ msgstr ""
 msgid "Upgrade This Feature"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:224
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:225
 msgid "Upsells"
 msgstr ""
 
@@ -749,7 +753,7 @@ msgstr ""
 msgid "VillaTheme"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:198
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:199
 msgid "Virtual"
 msgstr ""
 
@@ -757,7 +761,7 @@ msgstr ""
 msgid "Visible on the product page"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:219
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:220
 msgid "Weight"
 msgstr ""
 
@@ -769,7 +773,7 @@ msgstr ""
 msgid "Weight to"
 msgstr ""
 
-#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:221
+#: D:/git/free-version/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo/includes/data.php:222
 msgid "Width"
 msgstr ""
 

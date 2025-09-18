@@ -99,6 +99,7 @@ class Data {
 			'post_title'   => [ 'type' => 'text', 'width' => 200, 'title' => esc_html__( 'Title', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
 			'product_type' => [ 'type' => 'dropdown', 'width' => 100, 'title' => esc_html__( 'Product type', 'bulky-bulk-edit-products-for-woo' ), 'source' => $product_types ],
 			'image'        => [ 'type' => 'custom', 'width' => 70, 'title' => esc_html__( 'Image', 'bulky-bulk-edit-products-for-woo' ), 'editor' => 'image' ],
+			'global_unique_id'          => [ 'type' => 'text', 'width' => 70, 'title' => esc_html__( 'GTIN, UPC, EAN, or ISBN', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
 			'sku'          => [ 'type' => 'text', 'width' => 70, 'title' => esc_html__( 'SKU', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
 			'post_name'    => [ 'type' => 'text', 'width' => 70, 'title' => esc_html__( 'Slug', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
 

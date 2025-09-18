@@ -5,7 +5,7 @@ Tags:  bulk edit products, ecommerce, woocommerce
 Requires PHP: 7.0
 Requires at least: 5.0
 Tested up to: 6.7
-WC tested up to: 10.0
+WC tested up to: 10.1
 Stable tag: trunk
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -282,6 +282,10 @@ You can bulk edit/update product properties including
 6. Bulk edit reviews page
 
 == Changelog ==
+/** 1.2.13 - 2025.09.18 **/
+- Added: Include a 'GTIN, UPC, EAN, or ISBN' column on the bulk edit products page
+- Updated: Compatible with VARGAL - Additional Variation Gallery for Woo
+
 /** 1.2.12 - 2025.07.24 **/
 - Updated: VillaTheme support
 

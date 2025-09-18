@@ -1,3 +1,7 @@
+/** 1.2.13 - 2025.09.18 **/
+- Added: Include a 'GTIN, UPC, EAN, or ISBN' column on the bulk edit products page
+- Updated: Compatible with VARGAL - Additional Variation Gallery for Woo
+
 /** 1.2.12 - 2025.07.24 **/
 - Updated: VillaTheme support
 

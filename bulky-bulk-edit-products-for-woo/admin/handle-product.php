@@ -82,6 +82,9 @@ class Handle_Product {
 				case 'sku':
 					$p_data[] = $product->get_sku( 'edit' );
 					break;
+				case 'global_unique_id':
+					$p_data[] = $product->get_global_unique_id('edit');
+					break;
 
 				case 'featured':
 					$p_data[] = $product->get_featured( 'edit' );
@@ -356,6 +359,9 @@ class Handle_Product {
 			case 'sku':
 				break;
 
+			case 'global_unique_id':
+				$product->set_global_unique_id($value);
+				break;
 			case 'image':
 				$product->set_image_id( $value );
 				break;

@@ -3128,19 +3128,18 @@ const _f = {
     showMessage({title = '', message = '', type = 'positive', duration = 3000}) {
     const main = $( "#vi-wbe-container" ).find( "#vi-hui-toast" );
     if ( main.get(0) ) {
-        const toast = $( "<div></div>" );
-        const autoRemoveToast = setTimeout( function () {
-            main.find( ".vi-ui.message" ).remove();
-        }, duration + 1000 );
+        let toast_class = 'bulky-message-'+ Date.now();
+        let toast = $( "<div class='"+toast_class+"'></div>" );
+        setTimeout( function (toast_class) {
+            $( '.'+toast_class+' .icon.close' ).trigger('click');
+        }, duration + 1000 , toast_class);
 
         toast.on( "click", ".icon.close", function (e) {
-            main.find( ".vi-ui.message" ).remove();
-            clearTimeout( autoRemoveToast );
+            $(this).closest( ".vi-ui.message" ).remove();
         } );
 
         if ( main.children().length > 0 ) {
             main.find( ".vi-hui-toast" ).first().remove();
-            clearTimeout( autoRemoveToast );
         }
         const delay = (duration / 1000).toFixed(2);
 
@@ -3333,15 +3332,37 @@ class Calculator {
             return newValue;
         }
 
+        let current_field = excelObj.options?.columns[x]?.id, regular_field_index=null;
+        if (current_field ==='sale_price') {
+            for (let column of excelObj.options.columns) {
+                if (column?.id && column.id === 'regular_price'){
+                    regular_field_index = column.name;
+                }
+            }
+        }
         for (let y = start; y <= end; y++) {
             if (excelObj.records[y][x] && !excelObj.records[y][x].classList.contains('readonly') && excelObj.records[y][x].style.display !== 'none' && breakControl === false) {
-                let value = excelObj.options.data[y][x] || 0;
-                console.log(value)
-                records.push(excelObj.updateCell(x, y, formula(value)));
+                let value = formula(excelObj.options.data[y][x] || 0);
+                if (regular_field_index) {
+                    let regularPrice = parseFloat((excelObj.options.data[y][regular_field_index]||0).toString().replace(',', '.'));
+                    if (regularPrice < value) {
+                        let message = {
+                            title:excelObj.options.data[y][2],
+                            message: 'Please ensure the sale price is less than the regular price',
+                            type: "error sale-price-error-"+y,
+                            duration: 3000000
+                        };
+                        functions.showMessage(message);
+                        continue;
+                    }
+                }
+                records.push(excelObj.updateCell(x, y, value));
                 excelObj.updateFormulaChain(x, y, records);
             }
         }
-
+        if (!records.length){
+            return;
+        }
         // Update history
         excelObj.setHistory({
             action: 'setValue',
@@ -3415,7 +3436,6 @@ class CalculatorBaseOnRegularPrice {
         let start = h[1], end = h[3], x = h[0];
 
         function formula(regularPrice) {
-            regularPrice = parseFloat(regularPrice.replace(',', '.'));
             let extraValue = unit === 'percentage' ? regularPrice * fValue / 100 : fValue;
             let newValue = regularPrice - extraValue;
             newValue = newValue > 0 ? newValue : 0;
@@ -3438,7 +3458,19 @@ class CalculatorBaseOnRegularPrice {
         for (let y = start; y <= end; y++) {
             if (excelObj.records[y][x] && !excelObj.records[y][x].classList.contains('readonly') && excelObj.records[y][x].style.display !== 'none' && breakControl === false) {
                 let value = excelObj.options.data[y][x - 1] || 0;
-                records.push(excelObj.updateCell(x, y, formula(value)));
+                let regularPrice = parseFloat(value.replace(',', '.'));
+                value = formula(regularPrice)
+                if (regularPrice < value) {
+                    let message = {
+                        title:excelObj.options.data[y][2],
+                        message: 'Please ensure the sale price is less than the regular price',
+                        type: "error sale-price-error-"+y,
+                        duration: 3000000
+                    };
+                    functions.showMessage(message);
+                    continue;
+                }
+                records.push(excelObj.updateCell(x, y, value));
                 excelObj.updateFormulaChain(x, y, records);
             }
         }
@@ -3505,10 +3537,30 @@ class FillNumber {
         let h = excelObj.selectedContainer;
         let start = h[1], end = h[3], x = h[0];
 
+        let current_field = excelObj.options?.columns[x]?.id, regular_field_index;
+        if (current_field ==='sale_price') {
+            for (let column of excelObj.options.columns) {
+                if (column?.id && column.id === 'regular_price'){
+                    regular_field_index = column.name;
+                }
+            }
+        }
         for (let y = start; y <= end; y++) {
             if (excelObj.records[y][x] && !excelObj.records[y][x].classList.contains('readonly') && excelObj.records[y][x].style.display !== 'none' && breakControl === false) {
                 let value = from + step * i;
-
+                if (regular_field_index) {
+                    let regularPrice = parseFloat((excelObj.options.data[y][regular_field_index]||0).toString().replace(',', '.'));
+                    if (regularPrice < value) {
+                        let message = {
+                            title:excelObj.options.data[y][2],
+                            message: 'Please ensure the sale price is less than the regular price',
+                            type: "error sale-price-error-"+y,
+                            duration: 3000000
+                        };
+                        functions.showMessage(message);
+                        continue;
+                    }
+                }
                 records.push(excelObj.updateCell(x, y, value.toString()));
                 excelObj.updateFormulaChain(x, y, records);
                 i++;
@@ -3577,7 +3629,8 @@ const Sidebar = {
     },
 
     filter() {
-        let filterForm = sidebar_$('#vi-wbe-products-filter'),
+        let sidebar= this,
+            filterForm = sidebar_$('#vi-wbe-products-filter'),
             filterInput = sidebar_$('.vi-wbe-filter-input'),
             cssTop = {top: -2},
             cssMiddle = {top: '50%'};
@@ -3628,12 +3681,59 @@ const Sidebar = {
             });
         });
 
+        filterForm.find('.vi-wbe-search-select2:not(.vi-wbe-search-select2-init)').each(function () {
+            let select = sidebar_$(this);
+            let close_on_select = !select.prop('multiple'), min_input = 2, placeholder = 'select', data_send={}, type_select2 = select.data('type_select2');
+            switch (type_select2) {
+                case 'category':
+                    placeholder = 'Please enter category name to search';
+                    data_send = {
+                        action: 'woocommerce_json_search_categories',
+                        show_empty: true,
+                        security: wc_enhanced_select_params.search_categories_nonce,
+                    }
+                    break;
+                case 'tag':
+                    placeholder = 'Please enter tag to search';
+                    data_send = {
+                        action: 'woocommerce_json_search_taxonomy_terms',
+                        security: wc_enhanced_select_params.search_taxonomy_terms_nonce,
+                        limit: 50,
+                        taxonomy: 'product_tag',
+                    }
+                    break;
+                case 'product':
+                    placeholder = 'Please enter product title to search';
+                    data_send = {
+                        action: 'woocommerce_json_search_products_and_variations',
+                        security: wc_enhanced_select_params.search_products_nonce,
+                    }
+                    break;
+                default:
+                    data_send={not_ajax: 1, data:[], select:select};
+                    select.find('option').each( function (k,v){
+                        let remove = true;
+                        data_send.data.push({
+                            id: sidebar_$(v).val(),
+                            text: sidebar_$(v).text()
+                        });
+                        if (sidebar_$(v).prop('selected')){
+                            remove = false;
+                        }
+                        if (remove){
+                            sidebar_$(v).remove();
+                        }
+                    });
+            }
+            select.addClass('vi-wbe-search-select2-init').select2(sidebar.select2_params(placeholder, data_send, close_on_select, min_input));
+        });
         this.sidebar.on('click', '.vi-wbe-clear-filter', function () {
             sidebar_$('.vi-wbe-filter-label').css(cssMiddle);
             filterInput.val('');
             filterForm.find('div.vi-wbe.vi-ui.dropdown').dropdown('clear');
             filterForm.find('select.vi-wbe.vi-ui.dropdown').val(null).trigger('change');
             compactFilter.find('.menu .item:first').trigger('click');
+            filterForm.find('.vi-wbe-search-select2').val(null).trigger('change');
         });
 
         this.sidebar.on('change', '#vi-wbe-has_expire_date', function () {
@@ -3643,10 +3743,81 @@ const Sidebar = {
 
         this.sidebar.find('#vi-wbe-has_expire_date').trigger('change')
     },
+    select2_params(placeholder, data_send, close_on_select, min_input) {
+        let result = {
+            width: '100%',
+            closeOnSelect: close_on_select,
+            placeholder: placeholder,
+            allowClear: true,
+            cache: true
+        };
+        if (Object.keys(data_send).length) {
+            result['minimumInputLength'] = min_input;
+            result['escapeMarkup'] = function (markup) {
+                return markup;
+            };
+            if (data_send?.not_ajax){
+                let data_check = data_send.data,$select=sidebar_$(data_send.select),old_term, found={};
+                $select.on('select2:open', function() {
+                    let $search = sidebar_$('.select2-search__field'), val = $select.val();
+                    $search.off('input blur').on('input blur', function() {
+                        let term = sidebar_$(this).val().trim().toLowerCase(), terms=[];
+                        if (term.length < min_input || old_term === term ){
+                            return;
+                        }
+                        old_term = term;
+                        if (found[term]){
+                            terms = found[term];
+                        }else {
+                            terms = data_check.filter(item =>
+                                item.text.toLowerCase().includes(term)
+                            );
+                            found[term] = terms;
+                        }
+                        $select.find('option:not([value="'+val+'"])').remove();
+                        terms.forEach(item => {
+                            if (val != item.id) {
+                                $select.append(new Option(item.text, item.id, false, false));
+                            }
+                        });
+                        $select.trigger('change.select2');
+                    });
+                });
+            }else {
+                result['ajax'] = {
+                    url: wbeParams.ajaxUrl,
+                    dataType: 'json',
+                    type: "GET",
+                    quietMillis: 50,
+                    delay: 250,
+                    data: function (params) {
+                        let data = sidebar_$.extend(data_send, {
+                            term: params.term,
+                        });
+                        return data;
+                    },
+                    processResults: function (data) {
+                        let terms = [];
+                        if (data) {
+                            sidebar_$.each(data, function (id, text) {
+                                terms.push({
+                                    id:  text?.term_id||id,
+                                    text: text?.formatted_name || text?.name || text
+                                });
+                            });
+                        }
+                        return {results: terms};
+                    },
+                    cache: true
+                };
+            }
+        }
+        return result;
+    },
 
     settings() {
         let settingsForm = sidebar_$('.vi-wbe-settings-tab');
-        settingsForm.find('select.dropdown').dropdown();
+        settingsForm.find('select.dropdown').dropdown({fullTextSearch: true});
     },
 
     metafields() {
@@ -5975,14 +6146,6 @@ jQuery(document).ready(function ($) {
                                 }
                             }
 
-                            let pid = null;
-
-                            if (typeof y === 'object') {
-                                let y = y.getAttribute('data-y');
-                                pid = obj.options.data[y][1];
-                            } else {
-                                pid =  obj.options.data[y][1];
-                            }
                             items.push({type: 'line'});
 
                             items.push({
@@ -6017,14 +6180,35 @@ jQuery(document).ready(function ($) {
                                     });
                                 }
                             });
-
                             if (cells[1] === cells[3]) {
                                 items.push({
-                                    title: functions.text('View on Single product page'),
+                                    title: functions.text('Go to edit review page'),
                                     onclick() {
-                                        window.open(`${Attributes.frontendUrl}?p=${pid}&post_type=product&preview=true`, '_blank');
+                                        window.open(`${Attributes.adminUrl}/comment.php?action=editcomment&c=${(obj.options.data[y][0])}`, '_blank');
                                     }
                                 });
+                                let pid = null, product_id_index;
+                                for (let column of obj.options.columns) {
+                                    if (column?.id && column.id === 'product_id') {
+                                        product_id_index = column.name;
+                                    }
+                                }
+                                if (product_id_index) {
+                                    if (typeof y === 'object') {
+                                        let y = y.getAttribute('data-y');
+                                        pid = obj.options.data[y][product_id_index];
+                                    } else {
+                                        pid = obj.options.data[y][product_id_index];
+                                    }
+                                }
+                                if (pid) {
+                                    items.push({
+                                        title: functions.text('View on Single product page'),
+                                        onclick() {
+                                            window.open(`${Attributes.frontendUrl}?p=${pid}&post_type=product&preview=true`, '_blank');
+                                        }
+                                    });
+                                }
                             }
                         }
                         return items;
@@ -6058,6 +6242,29 @@ jQuery(document).ready(function ($) {
                 rowDrag: wbeParams?.settings?.load_variations !== 'yes',
 
                 onchange(instance, cell, col, row, value, oldValue) {
+                    let x = $(cell).data('x');
+                    if (x && this.options?.columns && this.options.columns[x]?.id === 'sale_price'){
+                        let regular_field_index = '';
+                        for (let column of this.options.columns) {
+                            if (column?.id && column.id === 'regular_price'){
+                                regular_field_index = column.name;
+                            }
+                        }
+                        if (regular_field_index) {
+                            let regularPrice = parseFloat((this.options.data[row][regular_field_index]||0).toString().replace(',', '.'));
+                            if (regularPrice < value) {
+                                let message = {
+                                    title:this.options.data[row][2],
+                                    message: 'Please ensure the sale price is less than the regular price',
+                                    type: "error sale-price-error-"+row,
+                                    duration: 3000000
+                                };
+                                functions.showMessage(message);
+                                $this.menubar.find('.vi-wbe-save-button').removeClass('vi-wbe-saveable');
+                                return;
+                            }
+                        }
+                    }
                     if (JSON.stringify(value) !== JSON.stringify(oldValue)) {
                         // if (c == 0) {
                         //     var columnName = jexcel.getColumnNameFromId([c + 1, r]);

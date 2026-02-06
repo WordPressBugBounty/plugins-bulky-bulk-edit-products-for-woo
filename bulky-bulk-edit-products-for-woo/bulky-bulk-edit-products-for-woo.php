@@ -3,19 +3,19 @@
  * Plugin Name: Bulky - Bulk Edit Products for WooCommerce
  * Plugin URI: https://villatheme.com/extensions/bulky-woocommerce-bulk-edit-products/
  * Description: A helpful tool that allows you to bulk edit available attributes of products such as ID, Title, Content,...
- * Version: 1.2.13
+ * Version: 1.2.17
  * Author: VillaTheme
  * Author URI: https://villatheme.com
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: bulky-bulk-edit-products-for-woo
  * Domain Path: /languages
- * Copyright 2021-2025 VillaTheme.com. All rights reserved.
+ * Copyright 2021-2026 VillaTheme.com. All rights reserved.
  * Requires Plugins: woocommerce
  * Requires at least: 5.0
- * Tested up to: 6.8
+ * Tested up to: 6.9
  * WC requires at least: 7.0
- * WC tested up to: 10.1
+ * WC tested up to: 10.4
  * Requires PHP: 7.0
  **/
 
@@ -46,7 +46,7 @@ if ( ! is_plugin_active( 'bulky-woocommerce-bulk-edit-products/bulky-woocommerce
 	class  WooCommerce_Products_Bulk_Editor_F {
 		public $plugin_name = 'Bulky - Bulk Edit Products for WooCommerce';
 
-		public $version = '1.2.13';
+		public $version = '1.2.17';
 
 		public $conditional = '';
 
@@ -71,6 +71,7 @@ if ( ! is_plugin_active( 'bulky-woocommerce-bulk-edit-products/bulky-woocommerce
 				'file'         => __FILE__,
 				'basename'     => plugin_basename( __FILE__ ),
 				'plugin_dir'   => plugin_dir_path( __FILE__ ),
+				'languages'    => plugin_dir_path( __FILE__ ) . 'languages' . DIRECTORY_SEPARATOR,
 				'includes_dir' => plugin_dir_path( __FILE__ ) . 'includes' . DIRECTORY_SEPARATOR,
 				'admin_dir'    => plugin_dir_path( __FILE__ ) . 'admin' . DIRECTORY_SEPARATOR,
 				'dist_dir'     => plugin_dir_path( __FILE__ ) . 'assets' . DIRECTORY_SEPARATOR . 'dist' . DIRECTORY_SEPARATOR,
@@ -93,10 +94,10 @@ if ( ! is_plugin_active( 'bulky-woocommerce-bulk-edit-products/bulky-woocommerce
 					'wp_version'      => '5.0',
 					'require_plugins' => [
 						[
-							'slug' => 'woocommerce',
-							'name' => 'WooCommerce',
+							'slug'            => 'woocommerce',
+							'name'            => 'WooCommerce',
 							'defined_version' => 'WC_VERSION',
-							'version' => '7.0',
+							'version'         => '7.0',
 						],
 					]
 				]
@@ -118,7 +119,6 @@ if ( ! is_plugin_active( 'bulky-woocommerce-bulk-edit-products/bulky-woocommerce
 		}
 
 		public function load_class() {
-
 			if ( ! function_exists( 'BWCEdit_Data' ) ) {
 				function BWCEdit_Data() {
 					return Data::instance();
@@ -137,12 +137,8 @@ if ( ! is_plugin_active( 'bulky-woocommerce-bulk-edit-products/bulky-woocommerce
 		}
 
 		public function load_text_domain() {
-			$locale = determine_locale();
-			$locale = apply_filters( 'plugin_locale', $locale, 'bulky-bulk-edit-products-for-woo' );
-
-			unload_textdomain( 'bulky-bulk-edit-products-for-woo' );
-			load_textdomain( 'bulky-bulk-edit-products-for-woo', WP_LANG_DIR . '/bulky-bulk-edit-products-for-woo/bulky-bulk-edit-products-for-woo-' . $locale . '.mo' );
-			load_plugin_textdomain( 'bulky-bulk-edit-products-for-woo', false, plugin_basename( dirname( BULKY_CONST_F['file'] ) ) . '/languages' );
+			$locale = apply_filters( 'plugin_locale', get_locale(), 'bulky-bulk-edit-products-for-woo' );
+			load_textdomain( 'bulky-bulk-edit-products-for-woo', BULKY_CONST_F['languages'] . 'bulky-bulk-edit-products-for-woo-' . $locale . '.mo' );
 		}
 
 		public function active( $network_wide ) {

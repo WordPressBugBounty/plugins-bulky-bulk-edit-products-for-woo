@@ -70,15 +70,15 @@ class Ajax {
 
 	public function resize_column() {
 		check_ajax_referer( 'vi_wbe_nonce', 'vi_wbe_nonce' );
-		$column_id = isset( $_POST['column_id'] ) ? sanitize_text_field( wp_unslash( $_POST['column_id'] ) ) : '';
+		$column_id    = isset( $_POST['column_id'] ) ? sanitize_text_field( wp_unslash( $_POST['column_id'] ) ) : '';
 		$column_width = isset( $_POST['column_width'] ) ? sanitize_text_field( wp_unslash( $_POST['column_width'] ) ) : '';
 
-		$user_id = get_current_user_id();
-		$user_product_column_width = get_user_meta( $user_id, 'vi_wbe_product_column_width', true );
+		$user_id                                 = get_current_user_id();
+		$user_product_column_width               = get_user_meta( $user_id, 'vi_wbe_product_column_width', true );
 		$user_product_column_width[ $column_id ] = $column_width;
-		if( update_user_meta( $user_id, 'vi_wbe_product_column_width', $user_product_column_width ) ) {
-			wp_send_json_success(esc_html__( 'Save column width successfully', 'bulky-bulk-edit-products-for-woo' ) );
-		}else {
+		if ( update_user_meta( $user_id, 'vi_wbe_product_column_width', $user_product_column_width ) ) {
+			wp_send_json_success( esc_html__( 'Save column width successfully', 'bulky-bulk-edit-products-for-woo' ) );
+		} else {
 			wp_send_json_error( esc_html__( 'Save column width failed', 'bulky-bulk-edit-products-for-woo' ) );
 		}
 	}
@@ -98,16 +98,15 @@ class Ajax {
 		check_ajax_referer( 'vi_wbe_nonce', 'vi_wbe_nonce' );
 
 		if ( isset( $_POST['fields'] ) ) {
-			wp_parse_str( $_POST['fields'], $new_options );
-			$option_name ='vi_wbe_settings';
-			$user_id = get_current_user_id();
-			if ($user_id){
-				$old_options = get_user_meta($user_id, $option_name, true);
+			wp_parse_str( preg_replace( '/&amp;/', '&', wp_kses_post( wp_unslash( $_POST['fields'] ) ) ), $new_options );
+			$option_name = 'vi_wbe_settings';
+			$user_id     = get_current_user_id();
+			if ( $user_id ) {
+				$old_options = get_user_meta( $user_id, $option_name, true );
 			}
-			if (empty($old_options) || !is_array($old_options)) {
-				$old_options = get_option($option_name );
+			if ( empty( $old_options ) || ! is_array( $old_options ) ) {
+				$old_options = get_option( $option_name );
 			}
-			$new_options = wc_clean( $new_options );
 
 			$old_edit_fields         = $old_options['edit_fields'] ?? [];
 			$new_edit_fields         = $new_options['edit_fields'] ?? [];
@@ -116,21 +115,20 @@ class Ajax {
 
 			$edit_fields_compare         = ! empty( array_merge( array_diff( $old_edit_fields, $new_edit_fields ), array_diff( $new_edit_fields, $old_edit_fields ) ) );
 			$exclude_edit_fields_compare = ! empty( array_merge( array_diff( $old_exclude_edit_fields, $new_exclude_edit_fields ), array_diff( $new_exclude_edit_fields, $old_exclude_edit_fields ) ) );
-			if ($user_id){
+			if ( $user_id ) {
 				update_user_meta( $user_id, $option_name, $new_options );
-			}else {
+			} else {
 				update_option( $option_name, $new_options );
 			}
 
 			wp_send_json_success( [
-				'settings'     => $new_options,
-				'fieldsChange' => $edit_fields_compare || $exclude_edit_fields_compare,
-				'fieldsRefresh' => (($old_options['order_by'] != $new_options['order_by'])||
-				                    ($old_options['order'] != $new_options['order'])||
-				                    ($old_options['load_variations'] != $new_options['load_variations']))
+				'settings'      => $new_options,
+				'fieldsChange'  => $edit_fields_compare || $exclude_edit_fields_compare,
+				'fieldsRefresh' => ( ( $old_options['order_by'] != $new_options['order_by'] ) ||
+				                     ( $old_options['order'] != $new_options['order'] ) ||
+				                     ( $old_options['load_variations'] != $new_options['load_variations'] ) )
 			] );
 		}
-
 	}
 
 	public function add_new_product() {
@@ -174,7 +172,7 @@ class Ajax {
 				break;
 
 			case 'sku':
-				$args['orderby']  = 'meta_value';
+				$args['orderby'] = 'meta_value';
 				// @codingStandardsIgnoreLine
 				$args['meta_key'] = '_sku';
 				break;
@@ -188,7 +186,7 @@ class Ajax {
 		remove_all_filters( 'woocommerce_product_object_query_args' );
 		remove_all_filters( 'woocommerce_product_object_query' );
 
-		$args   = $filter->set_args( $args );
+		$args = $filter->set_args( $args );
 		if ( ! empty( $settings['variation_filter'] ) ) {
 			unset( $args['stock_status'] );
 		}
@@ -226,7 +224,6 @@ class Ajax {
 				$products_data[] = $handle_product->get_product_data_for_edit( $product );
 
 				if ( $product->get_type() == 'variable' && $settings['load_variations'] == 'yes' ) {
-
 					if ( ! empty( $settings['variation_filter'] ) ) {
 						add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $this, 'filter_variation' ] );
 					}
@@ -287,21 +284,31 @@ class Ajax {
 		if ( empty( $_POST['filter_data'] ) ) {
 			wp_send_json_error();
 		}
-		wp_parse_str( $_POST['filter_data'], $filter_data );
-		$filter_data = wc_clean( $filter_data );
-		$user_id     = get_current_user_id();
+//		wp_parse_str( $_POST['filter_data'], $filter_data );
+//		$filter_data = wc_clean( $filter_data );
+		wp_parse_str( preg_replace( '/&amp;/', '&', wp_kses_post( wp_unslash( $_POST['filter_data'] ) ) ), $filter_data );
+		$user_id = get_current_user_id();
 		set_transient( "vi_wbe_filter_data_{$user_id}", $filter_data, DAY_IN_SECONDS );
 
 		$this->load_products();
 	}
 
+	public static function json_decode( $json, $assoc = true, $depth = 512, $options = 2 ) {
+		if ( is_array( $json ) || ! $json ) {
+			return $json;
+		}
+		if ( function_exists( 'mb_convert_encoding' ) ) {
+			$json = mb_convert_encoding( $json, 'UTF-8', 'UTF-8' );
+		}
+
+		return json_decode( is_string( $json ) ? $json : '{}', $assoc, $depth, $options );
+	}
+
 	public function save_products() {
 		check_ajax_referer( 'vi_wbe_nonce', 'vi_wbe_nonce' );
-
-		$products    = isset( $_POST['products'] ) ? json_decode( stripslashes( $_POST['products'] ), true ) : '';
-		$trash_ids   = ! empty( $_POST['trash'] ) ? wc_clean( wp_unslash( $_POST['trash'] ) ) : '';
-		$untrash_ids = ! empty( $_POST['untrash'] ) ? wc_clean( wp_unslash( $_POST['untrash'] ) ) : '';
-
+		$products    = isset( $_POST['products'] ) ? json_decode( wp_unslash( $_POST['products'] ), true ) : '';// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$trash_ids   = ! empty( $_POST['trash'] ) ? wc_clean( wp_unslash( $_POST['trash'] ) ) : '';// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$untrash_ids = ! empty( $_POST['untrash'] ) ? wc_clean( wp_unslash( $_POST['untrash'] ) ) : '';// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$response = [];
 
 		if ( $untrash_ids ) {
@@ -332,7 +339,6 @@ class Ajax {
 					if ( ! $type || $key === 0 ) {
 						continue;
 					}
-
 					if ( $type === 'sku' ) {
 						$sku = $value;
 					}
@@ -362,7 +368,7 @@ class Ajax {
 					}
 				}
 
-				if ( empty( $slug ) && ! empty( $title ) && empty($product->get_slug('edit')) ) {
+				if ( empty( $slug ) && ! empty( $title ) && empty( $product->get_slug( 'edit' ) ) ) {
 					$product->set_slug( sanitize_title( $title ) );
 					$this->generate_unique_slug( $product );
 				}
@@ -578,7 +584,6 @@ class Ajax {
 			}
 
 			History::instance()->revert_history_product_attribute( $product, $history_id, $attribute );
-
 		}
 
 		wp_send_json_success();
@@ -598,10 +603,9 @@ class Ajax {
 
 		if ( current_user_can( 'manage_product_terms' ) && isset( $_POST['taxonomy'], $_POST['term'] ) ) {
 			$taxonomy = sanitize_text_field( wp_unslash( $_POST['taxonomy'] ) );
-			$term     = wc_clean( wp_unslash( $_POST['term'] ) );
+			$term     = wc_clean( wp_unslash( $_POST['term'] ) );// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			if ( taxonomy_exists( $taxonomy ) ) {
-
 				$result = wp_insert_term( $term, $taxonomy );
 
 				if ( is_wp_error( $result ) ) {
@@ -826,7 +830,6 @@ class Ajax {
 	}
 
 	private function parse_variation_filter_meta_time( &$query, $load_filter, $value, $key, $compare = '=' ) {
-
 		if ( isset( $load_filter[ $value ] ) && $load_filter[ $value ] !== '' ) {
 			$time = 0;
 			if ( $key === '_sale_price_dates_from' ) {

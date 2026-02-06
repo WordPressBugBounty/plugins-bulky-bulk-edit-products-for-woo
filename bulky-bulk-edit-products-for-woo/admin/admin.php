@@ -58,18 +58,20 @@ class Admin {
 			[ $this, 'pro_edit_page' ]
 		);
 	}
-	public function pro_edit_page(){
-		$page = isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) :'';
-		$img = 'preview-'.str_replace('vi_wbe_edit_','', $page);
+
+	public function pro_edit_page() {
+		global $current_screen;
+		$page = $current_screen->id;
+		$img  = 'preview-' . str_replace( 'bulky_page_vi_wbe_edit_', '', $page );
 		?>
-		<div class="wrap">
+        <div class="wrap">
             <div class="viweb-preview-pro-feature-wrap">
-                <img src="<?php echo esc_url(BULKY_CONST_F['img_url'].$img.'.png') ?>" alt="<?php echo esc_attr($img) ?>">
+                <img src="<?php echo esc_url( BULKY_CONST_F['img_url'] . $img . '.png' ) ?>" alt="<?php echo esc_attr( $img ) ?>">
                 <div class="viweb-preview-pro-button">
-                    <?php Support::get_pro_version(); ?>
+					<?php Support::get_pro_version(); ?>
                 </div>
             </div>
-		</div>
+        </div>
 		<?php
 	}
 }

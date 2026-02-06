@@ -23,7 +23,6 @@ class Handle_Product {
 		$p_data = [];
 		foreach ( $fields as $field ) {
 			switch ( $field ) {
-
 				case 'id':
 					$p_data[] = $product->get_id();
 					break;
@@ -83,7 +82,7 @@ class Handle_Product {
 					$p_data[] = $product->get_sku( 'edit' );
 					break;
 				case 'global_unique_id':
-					$p_data[] = $product->get_global_unique_id('edit');
+					$p_data[] = $product->get_global_unique_id( 'edit' );
 					break;
 
 				case 'featured':
@@ -342,7 +341,7 @@ class Handle_Product {
 			}
 		}
 
-		return apply_filters('bulky_get_product_data',$p_data,$product, $fields);
+		return apply_filters( 'bulky_get_product_data', $p_data, $product, $fields );
 	}
 
 	public function get_product_data_for_edit( $product ) {
@@ -360,17 +359,17 @@ class Handle_Product {
 				break;
 
 			case 'global_unique_id':
-				$product->set_global_unique_id($value);
+				$product->set_global_unique_id( $value );
 				break;
 			case 'image':
 				$product->set_image_id( $value );
 				break;
 			case 'post_title':
-				$product->set_name( $value );
+				$product->set_name( wp_kses_post($value) );
 				break;
 
 			case 'post_name':
-				$product->set_slug( $value );
+				$product->set_slug( wp_kses_post($value) );
 				break;
 
 			case 'post_date':
@@ -378,11 +377,11 @@ class Handle_Product {
 				break;
 
 			case 'post_content':
-				$product->set_description( $value );
+				$product->set_description( wp_kses_post($value) );
 				break;
 
 			case 'post_excerpt':
-				$product->set_short_description( $value );
+				$product->set_short_description( wp_kses_post($value) );
 				break;
 
 			case 'gallery':
@@ -608,7 +607,7 @@ class Handle_Product {
 				break;
 
 			default:
-				$meta_fields = get_option( 'vi_wbe_product_meta_fields',[] );
+				$meta_fields = get_option( 'vi_wbe_product_meta_fields', [] );
 				if ( in_array( $type, array_keys( $meta_fields ) ) ) {
 					$data_type = $meta_fields[ $type ]['input_type'] ?? '';
 					$pid       = $product->get_id();
@@ -621,8 +620,7 @@ class Handle_Product {
 				}
 				break;
 		}
-		do_action('bulky_parse_product_data_to_save', $product, $type, $value);
-
+		do_action( 'bulky_parse_product_data_to_save', $product, $type, $value );
 	}
 
 	public function prepare_attributes( $attributes ) {

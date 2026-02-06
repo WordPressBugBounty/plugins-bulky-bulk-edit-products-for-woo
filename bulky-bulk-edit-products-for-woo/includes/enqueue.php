@@ -62,6 +62,7 @@ class Enqueue {
 
 				wp_localize_script( BULKY_CONST_F['assets_slug'] . 'admin', 'viWbeParams', $params );
 			}
+
 			return;
 		}
 		$this->register_styles( 'header,tab,menu,segment,form,table,checkbox,dropdown,transition,popup,accordion,select2,button,input,label,list,dimmer,modal,message,icon,jsoneditor,jsuite,jexcel', true );
@@ -109,7 +110,7 @@ class Enqueue {
 					$attr_data[ $taxonomy ]['data'] = (array) $tax;
 
 					if ( taxonomy_exists( $taxonomy ) ) {
-						$terms = get_terms( ['taxonomy' => $taxonomy, 'hide_empty' => false,] );
+						$terms = get_terms( [ 'taxonomy' => $taxonomy, 'hide_empty' => false, ] );
 						foreach ( $terms as $term ) {
 							$attr_data[ $taxonomy ]['terms'][ $term->term_id ] = [ 'slug' => $term->slug, 'text' => $term->name ];
 						}
@@ -140,7 +141,7 @@ class Enqueue {
 			case 'bulky_page_vi_wbe_edit_orders':
 			case 'bulky_page_vi_wbe_edit_coupons':
 			case 'bulky_page_vi_wbe_edit_reviews':
-				$this->enqueue_styles('settings');
+				$this->enqueue_styles( 'settings' );
 				break;
 
 			case 'bulky_page_vi_wbe_settings':

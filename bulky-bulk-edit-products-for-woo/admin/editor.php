@@ -22,7 +22,7 @@ class Editor {
 	}
 
 	public function remove_notice() {
-        $screen_id = get_current_screen()->id;
+		$screen_id = get_current_screen()->id;
 		if ( $screen_id === 'toplevel_page_vi_wbe_bulk_editor' ) {
 			remove_all_actions( 'admin_notices' );
 		}
@@ -769,7 +769,6 @@ class Editor {
 			?>
         </div>
 		<?php
-
 	}
 
 	public function behavior_ui( $id ) {

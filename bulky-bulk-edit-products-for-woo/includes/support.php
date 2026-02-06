@@ -26,7 +26,7 @@ class Support {
 			array(
 				'support'    => 'https://wordpress.org/support/plugin/bulky-bulk-edit-products-for-woo',
 				'docs'       => 'https://docs.villatheme.com/?item=bulky-woocommerce-bulk-edit-products',
-				'review'     => 'https://wordpress.org/support/plugin/bulky-bulk-edit-products-for-woo/reviews/?rate=5#rate-response',
+				'review'     => 'https://wordpress.org/support/plugin/bulky-bulk-edit-products-for-woo/reviews/',
 				'css'        => BULKY_CONST_F['dist_url'],
 				'image'      => BULKY_CONST_F['img_url'],
 				'slug'       => BULKY_CONST_F['slug'],

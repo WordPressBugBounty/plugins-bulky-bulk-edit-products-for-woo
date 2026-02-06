@@ -63,7 +63,6 @@ class Data {
 			[ 'id' => 'private', 'name' => esc_html__( 'Private', 'bulky-bulk-edit-products-for-woo' ) ],
 		];
 
-
 		$catalog_visibility = $this->parse_to_dropdown_source( wc_get_product_visibility_options() );
 		$product_types      = $this->parse_to_dropdown_source( wc_get_product_types() );
 		$tax_class_options  = $this->parse_to_dropdown_source( wc_get_product_tax_class_options() );
@@ -94,14 +93,14 @@ class Data {
 		$curency_format    = "###{$decimal_separator}#";
 
 		$columns = [
-			'id'           => [ 'type' => 'number', 'width' => 70, 'title' => 'ID', 'readOnly' => true ],
-			'parent_id'    => [ 'type' => 'number', 'width' => 60, 'title' => 'Parent', 'readOnly' => true, ],
-			'post_title'   => [ 'type' => 'text', 'width' => 200, 'title' => esc_html__( 'Title', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
-			'product_type' => [ 'type' => 'dropdown', 'width' => 100, 'title' => esc_html__( 'Product type', 'bulky-bulk-edit-products-for-woo' ), 'source' => $product_types ],
-			'image'        => [ 'type' => 'custom', 'width' => 70, 'title' => esc_html__( 'Image', 'bulky-bulk-edit-products-for-woo' ), 'editor' => 'image' ],
-			'global_unique_id'          => [ 'type' => 'text', 'width' => 70, 'title' => esc_html__( 'GTIN, UPC, EAN, or ISBN', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
-			'sku'          => [ 'type' => 'text', 'width' => 70, 'title' => esc_html__( 'SKU', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
-			'post_name'    => [ 'type' => 'text', 'width' => 70, 'title' => esc_html__( 'Slug', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
+			'id'               => [ 'type' => 'number', 'width' => 70, 'title' => 'ID', 'readOnly' => true ],
+			'parent_id'        => [ 'type' => 'number', 'width' => 60, 'title' => 'Parent', 'readOnly' => true, ],
+			'post_title'       => [ 'type' => 'text', 'width' => 200, 'title' => esc_html__( 'Title', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
+			'product_type'     => [ 'type' => 'dropdown', 'width' => 100, 'title' => esc_html__( 'Product type', 'bulky-bulk-edit-products-for-woo' ), 'source' => $product_types ],
+			'image'            => [ 'type' => 'custom', 'width' => 70, 'title' => esc_html__( 'Image', 'bulky-bulk-edit-products-for-woo' ), 'editor' => 'image' ],
+			'global_unique_id' => [ 'type' => 'text', 'width' => 70, 'title' => esc_html__( 'GTIN, UPC, EAN, or ISBN', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
+			'sku'              => [ 'type' => 'text', 'width' => 70, 'title' => esc_html__( 'SKU', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
+			'post_name'        => [ 'type' => 'text', 'width' => 70, 'title' => esc_html__( 'Slug', 'bulky-bulk-edit-products-for-woo' ), 'align' => 'left' ],
 
 			'post_date' => [
 				'type'    => 'calendar',
@@ -288,7 +287,7 @@ class Data {
 		];
 
 		$user_product_meta_fields = get_user_meta( $user_id, 'vi_wbe_product_meta_fields', true );
-		$meta_fields = ! empty( $user_product_meta_fields ) ? $user_product_meta_fields : get_option( 'vi_wbe_product_meta_fields' );
+		$meta_fields              = ! empty( $user_product_meta_fields ) ? $user_product_meta_fields : get_option( 'vi_wbe_product_meta_fields' );
 
 		$meta_field_columns = [];
 		if ( ! empty( $meta_fields ) && is_array( $meta_fields ) ) {
@@ -330,7 +329,6 @@ class Data {
 					'type'   => $type,
 					'editor' => $editor,
 				];
-
 			}
 		}
 
@@ -344,11 +342,10 @@ class Data {
 				$user_product_column_width[ $col_id ] = $column['width'];
 			}
 			update_user_meta( $user_id, 'vi_wbe_product_column_width', $user_product_column_width );
-
-		}else {
+		} else {
 			foreach ( $columns as $col_id => $column ) {
 				if ( isset( $user_product_column_width[ $col_id ] ) ) {
-					$columns[$col_id]['width'] = $user_product_column_width[ $col_id ];
+					$columns[ $col_id ]['width'] = $user_product_column_width[ $col_id ];
 				}
 			}
 		}

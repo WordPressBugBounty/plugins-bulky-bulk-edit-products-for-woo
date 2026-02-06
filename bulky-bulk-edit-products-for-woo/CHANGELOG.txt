@@ -1,3 +1,15 @@
+/** 1.2.17 - 2026.01.23 **/
+- Updated: VillaTheme support
+
+/** 1.2.16 - 2025.11.15 **/
+- Updated: Show a warning message if the regular price field exists and the entered value is invalid when updating the sale price field.
+
+/** 1.2.15 - 2025.10.30 **/
+- Updated: VillaTheme support
+
+/** 1.2.14 - 2025.10.29 **/
+- Updated: VillaTheme support
+
 /** 1.2.13 - 2025.09.18 **/
 - Added: Include a 'GTIN, UPC, EAN, or ISBN' column on the bulk edit products page
 - Updated: Compatible with VARGAL - Additional Variation Gallery for Woo

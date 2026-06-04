@@ -29,7 +29,7 @@ class Filters {
 		$this->filter = $filter;
 
 		if ( ! empty( $filter['id'] ) && strpos( $filter['id'], '-' ) === false ) {
-			$args['include'] = explode( ',', str_replace( ' ', '', $filter['id'] ) );
+			$args['include'] = array_filter( array_map( 'absint', explode( ',', str_replace( ' ', '', $filter['id'] ) ) ) );
 		}
 
 		$string_type = [ 'type', 'status', 'stock_status', 'backorders', 'visibility' ];
@@ -47,7 +47,7 @@ class Filters {
 		}
 
 		if ( ! empty( $filter['author'] ) ) {
-			$args['author'] = $filter['author'];
+			$args['author'] = absint( $filter['author'] );
 		}
 
 		return $args;
@@ -131,11 +131,17 @@ class Filters {
 		}
 
 		if ( ! empty( $filter['post_date_from'] ) ) {
-			$where .= " AND post_date >= '{$filter['post_date_from']}' ";
+			$date_from = sanitize_text_field( $filter['post_date_from'] );
+			if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $date_from ) ) {
+				$where .= $wpdb->prepare( ' AND post_date >= %s', $date_from . ' 00:00:00' );
+			}
 		}
 
 		if ( ! empty( $filter['post_date_to'] ) ) {
-			$where .= " AND post_date <= '{$filter['post_date_to']}' ";
+			$date_to = sanitize_text_field( $filter['post_date_to'] );
+			if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $date_to ) ) {
+				$where .= $wpdb->prepare( ' AND post_date <= %s', $date_to . ' 23:59:59' );
+			}
 		}
 
 		$product_ids_from_range_type = $this->parse_type_range( $filter );
@@ -273,6 +279,8 @@ class Filters {
 	}
 
 	public function text_search() {
+		global $wpdb;
+
 		$items = array_map( function ( $key ) {
 			return [
 				'type'     => $key,
@@ -302,23 +310,23 @@ class Filters {
 					break;
 
 				case 'exact':
-					$query .= "{$type} ='{$value}'";
+					$query .= $wpdb->prepare( "{$type} = %s", $value );
 					break;
 
 				case 'not':
-					$query .= "{$type} NOT LIKE '%{$value}%'";
+					$query .= $wpdb->prepare( "{$type} NOT LIKE %s", '%' . $wpdb->esc_like( $value ) . '%' );
 					break;
 
 				case 'begin':
-					$query .= "{$type} REGEXP '^{$value}'";
+					$query .= $wpdb->prepare( "{$type} LIKE %s", $wpdb->esc_like( $value ) . '%' );
 					break;
 
 				case 'end':
-					$query .= "{$type} REGEXP '{$value}$'";
+					$query .= $wpdb->prepare( "{$type} LIKE %s", '%' . $wpdb->esc_like( $value ) );
 					break;
 
 				default:
-					$query .= "{$type} LIKE '%{$value}%'";
+					$query .= $wpdb->prepare( "{$type} LIKE %s", '%' . $wpdb->esc_like( $value ) . '%' );
 					break;
 			}
 
@@ -361,31 +369,36 @@ class Filters {
 
 			switch ( $sku_behavior ) {
 				case 'exact':
-					$sku_condition .= "postmeta.meta_value = '{$sku}'";
+					$sku_condition = $wpdb->prepare( 'postmeta.meta_value = %s', $sku );
 					break;
 
 				case 'not':
-					$sku_condition .= "postmeta.meta_value NOT LIKE '%{$sku}%'";
+					$sku_condition = $wpdb->prepare( 'postmeta.meta_value NOT LIKE %s', '%' . $wpdb->esc_like( $sku ) . '%' );
 					break;
 
 				case 'begin':
-					$sku_condition .= "postmeta.meta_value REGEXP '^{$sku}'";
+					$sku_condition = $wpdb->prepare( 'postmeta.meta_value LIKE %s', $wpdb->esc_like( $sku ) . '%' );
 					break;
 
 				case 'end':
-					$sku_condition .= "postmeta.meta_value REGEXP '{$sku}$'";
+					$sku_condition = $wpdb->prepare( 'postmeta.meta_value LIKE %s', '%' . $wpdb->esc_like( $sku ) );
 					break;
 
 				case 'like':
-					$sku_condition .= "postmeta.meta_value LIKE '%{$sku}%'";
+					$sku_condition = $wpdb->prepare( 'postmeta.meta_value LIKE %s', '%' . $wpdb->esc_like( $sku ) . '%' );
 					break;
 
 				default:
-					$skus          = explode( ',', $sku );
-					$skus          = array_map( 'trim', $skus );
-					$skus          = implode( "','", $skus );
-					$sku_condition .= "postmeta.meta_value IN ('{$skus}') ";
+					$skus = array_filter( array_map( 'sanitize_text_field', array_map( 'trim', explode( ',', $sku ) ) ) );
+					if ( ! empty( $skus ) ) {
+						$placeholders  = implode( ', ', array_fill( 0, count( $skus ), '%s' ) );
+						$sku_condition = $wpdb->prepare( "postmeta.meta_value IN ({$placeholders})", $skus ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					}
 					break;
+			}
+
+			if ( empty( $sku_condition ) ) {
+				return " AND (1=2)";
 			}
 
 			$query = "SELECT posts.ID FROM {$wpdb->posts} AS posts

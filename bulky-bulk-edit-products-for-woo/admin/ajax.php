@@ -73,8 +73,11 @@ class Ajax {
 		$column_id    = isset( $_POST['column_id'] ) ? sanitize_text_field( wp_unslash( $_POST['column_id'] ) ) : '';
 		$column_width = isset( $_POST['column_width'] ) ? sanitize_text_field( wp_unslash( $_POST['column_width'] ) ) : '';
 
-		$user_id                                 = get_current_user_id();
-		$user_product_column_width               = get_user_meta( $user_id, 'vi_wbe_product_column_width', true );
+		$user_id                   = get_current_user_id();
+		$user_product_column_width = get_user_meta( $user_id, 'vi_wbe_product_column_width', true );
+		if ( ! is_array( $user_product_column_width ) ) {
+			$user_product_column_width = [];
+		}
 		$user_product_column_width[ $column_id ] = $column_width;
 		if ( update_user_meta( $user_id, 'vi_wbe_product_column_width', $user_product_column_width ) ) {
 			wp_send_json_success( esc_html__( 'Save column width successfully', 'bulky-bulk-edit-products-for-woo' ) );
@@ -105,8 +108,12 @@ class Ajax {
 				$old_options = get_user_meta( $user_id, $option_name, true );
 			}
 			if ( empty( $old_options ) || ! is_array( $old_options ) ) {
-				$old_options = get_option( $option_name );
+				$old_options = get_option( $option_name, [] );
 			}
+			if ( ! is_array( $old_options ) ) {
+				$old_options = [];
+			}
+			$new_options = wp_parse_args( $this->sanitize_settings( $new_options ), $old_options );
 
 			$old_edit_fields         = $old_options['edit_fields'] ?? [];
 			$new_edit_fields         = $new_options['edit_fields'] ?? [];
@@ -386,7 +393,10 @@ class Ajax {
 
 		if ( $trash_ids ) {
 			foreach ( $trash_ids as $pid ) {
-				$product = wc_get_product( $pid );
+				$product = wc_get_product( absint( $pid ) );
+				if ( ! $product ) {
+					continue;
+				}
 				if ( $product->is_type( 'variation' ) ) {
 					wp_delete_post( $pid );
 				} else {
@@ -464,7 +474,7 @@ class Ajax {
 		check_ajax_referer( 'vi_wbe_nonce', 'vi_wbe_nonce' );
 
 		if ( ! empty( $_POST['pid'] ) ) {
-			$product_id       = sanitize_text_field( intval( $_POST['pid'] ) );
+			$product_id       = absint( $_POST['pid'] );
 			$product_object   = wc_get_product_object( 'variable', $product_id ); // Forces type to variable in case product is unsaved.
 			$variation_object = wc_get_product_object( 'variation' );
 			$variation_object->set_parent_id( $product_id );
@@ -483,7 +493,7 @@ class Ajax {
 		wc_maybe_define_constant( 'WC_MAX_LINKED_VARIATIONS', 50 );
 		wc_set_time_limit( 0 );
 
-		$post_id = isset( $_POST['pid'] ) ? intval( $_POST['pid'] ) : 0;
+		$post_id = isset( $_POST['pid'] ) ? absint( $_POST['pid'] ) : 0;
 
 		if ( ! $post_id ) {
 			wp_die();
@@ -846,6 +856,50 @@ class Ajax {
 				'compare' => $compare,
 			];
 		}
+	}
+
+	/**
+	 * Sanitize settings before saving to user meta / options.
+	 *
+	 * @param array $settings Raw settings from POST.
+	 * @return array
+	 */
+	private function sanitize_settings( $settings ) {
+		if ( ! is_array( $settings ) ) {
+			return [];
+		}
+
+		$sanitized        = [];
+		$allowed_order_by = [ 'ID', 'title', 'price', 'sku' ];
+		$allowed_order    = [ 'ASC', 'DESC' ];
+
+		if ( isset( $settings['edit_fields'] ) && is_array( $settings['edit_fields'] ) ) {
+			$sanitized['edit_fields'] = array_map( 'sanitize_text_field', $settings['edit_fields'] );
+		}
+
+		if ( isset( $settings['exclude_edit_fields'] ) && is_array( $settings['exclude_edit_fields'] ) ) {
+			$sanitized['exclude_edit_fields'] = array_map( 'sanitize_text_field', $settings['exclude_edit_fields'] );
+		}
+
+		if ( isset( $settings['load_variations'] ) ) {
+			$sanitized['load_variations'] = in_array( $settings['load_variations'], [ 'yes', 'no' ], true ) ? $settings['load_variations'] : 'yes';
+		}
+
+		if ( isset( $settings['order_by'] ) ) {
+			$order_by = sanitize_text_field( $settings['order_by'] );
+			$sanitized['order_by'] = in_array( $order_by, $allowed_order_by, true ) ? $order_by : 'ID';
+		}
+
+		if ( isset( $settings['order'] ) ) {
+			$order = strtoupper( sanitize_text_field( $settings['order'] ) );
+			$sanitized['order'] = in_array( $order, $allowed_order, true ) ? $order : 'DESC';
+		}
+
+		if ( isset( $settings['variation_filter'] ) ) {
+			$sanitized['variation_filter'] = ! empty( $settings['variation_filter'] ) ? 1 : 0;
+		}
+
+		return $sanitized;
 	}
 
 	public function parse_variation_filter_meta( &$query, $load_filter, $value, $key, $compare = '=' ) {

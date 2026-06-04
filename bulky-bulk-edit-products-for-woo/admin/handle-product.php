@@ -97,6 +97,15 @@ class Handle_Product {
 					$p_data[] = wc_format_localized_price( $product->get_sale_price( 'edit' ) );
 					break;
 
+				case 'cost_of_goods':
+					if ( method_exists( $product, 'get_cogs_value' ) ) {
+						$cogs_value = $product->get_cogs_value();
+						$p_data[]   = null !== $cogs_value ? wc_format_localized_price( $cogs_value ) : '';
+					} else {
+						$p_data[] = '';
+					}
+					break;
+
 				case 'sale_date_from':
 					$date     = $product->get_date_on_sale_from( 'edit' );
 					$date     = $date ? $date->date_i18n() : '';
@@ -389,11 +398,14 @@ class Handle_Product {
 				break;
 
 			case 'status':
-				$product->set_status( $value );
+				$allowed_statuses = [ 'publish', 'draft', 'pending', 'private', 'future' ];
+				if ( in_array( $value, $allowed_statuses, true ) ) {
+					$product->set_status( $value );
+				}
 				break;
 
 			case 'password':
-				$product->set_post_password( $value );
+				$product->set_post_password( sanitize_text_field( $value ) );
 				break;
 
 			case 'featured':
@@ -406,6 +418,16 @@ class Handle_Product {
 
 			case 'sale_price':
 				$product->set_sale_price( $value );
+				break;
+
+			case 'cost_of_goods':
+				if ( $p_type !== 'variable' && method_exists( $product, 'set_cogs_value' ) ) {
+					if ( $value === '' || $value === null ) {
+						$product->set_cogs_value( null );
+					} else {
+						$product->set_cogs_value( (float) wc_format_decimal( $value ) );
+					}
+				}
 				break;
 
 			case 'sale_date_from':
@@ -430,11 +452,15 @@ class Handle_Product {
 				break;
 
 			case 'stock_status':
-				$product->set_stock_status( $value );
+				if ( array_key_exists( $value, wc_get_product_stock_status_options() ) ) {
+					$product->set_stock_status( $value );
+				}
 				break;
 
 			case 'allow_backorder':
-				$product->set_backorders( $value );
+				if ( array_key_exists( $value, wc_get_product_backorder_options() ) ) {
+					$product->set_backorders( $value );
+				}
 				break;
 
 			case 'sold_individually':
@@ -579,14 +605,19 @@ class Handle_Product {
 				break;
 
 			case 'author':
-				$post              = get_post( $product->get_id() );
-				$post->post_author = $value;
+				$author_id = absint( $value );
+				if ( $author_id && ( current_user_can( 'edit_others_posts' ) || (int) get_current_user_id() === $author_id ) ) {
+					$post              = get_post( $product->get_id() );
+					$post->post_author = $author_id;
+				}
 				break;
 
 			case 'catalog_visibility':
 				if ( ! $product->is_type( 'variation' ) ) {
 					$value = $value ? $value : 'visible';
-					$product->set_catalog_visibility( $value );
+					if ( array_key_exists( $value, wc_get_product_visibility_options() ) ) {
+						$product->set_catalog_visibility( $value );
+					}
 				}
 				break;
 

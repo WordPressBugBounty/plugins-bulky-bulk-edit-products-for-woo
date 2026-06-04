@@ -53,7 +53,8 @@ class History {
 	}
 
 	public function get() {
-		$query  = "select id,date,user_id from {$this->table} order by id desc limit {$this->limit}";
+		$limit  = absint( $this->limit );
+		$query  = $this->wpdb->prepare( "SELECT id, date, user_id FROM {$this->table} ORDER BY id DESC LIMIT %d", $limit );
 		$result = $this->wpdb->get_results( $query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 		return $result;
@@ -159,13 +160,16 @@ class History {
 	}
 
 	public function get_history_page( $page = 1 ) {
-		$offset    = ( $page - 1 ) * $this->limit;
-		$query     = "select id,date,user_id from {$this->table} order by id desc limit {$offset}, {$this->limit}";
+		$page      = max( 1, absint( $page ) );
+		$limit     = absint( $this->limit );
+		$offset    = ( $page - 1 ) * $limit;
+		$query     = $this->wpdb->prepare( "SELECT id, date, user_id FROM {$this->table} ORDER BY id DESC LIMIT %d, %d", $offset, $limit );
 		$histories = $this->wpdb->get_results( $query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 		if ( ! empty( $histories ) ) {
 			foreach ( $histories as $history ) {
-				$user = get_user_by( 'ID', $history['user_id'] );
+				$user         = get_user_by( 'ID', $history['user_id'] );
+				$display_name = ( $user && ! is_wp_error( $user ) ) ? $user->display_name : esc_html__( 'Unknown', 'bulky-bulk-edit-products-for-woo' );
 				printf( '<tr>
 								    <td>%s</td>
 								    <td>%s</td>
@@ -181,7 +185,7 @@ class History {
 								    </td>
 								</tr>',
 					esc_html( date_i18n( wc_date_format() . ' ' . wc_time_format(), $history['date'] ) ),
-					esc_html( $user->__get( 'display_name' ) ), esc_attr( $history['id'] ), esc_attr( $history['id'] ) );
+					esc_html( $display_name ), esc_attr( $history['id'] ), esc_attr( $history['id'] ) );
 			}
 		}
 	}

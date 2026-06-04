@@ -7,6 +7,7 @@ defined( 'ABSPATH' ) || exit;
 class Data {
 
 	protected static $instance = null;
+	protected static $define_columns_cache = null;
 
 	protected $params;
 	protected $filter;
@@ -45,6 +46,10 @@ class Data {
 	}
 
 	public function define_columns_type() {
+		if ( null !== self::$define_columns_cache ) {
+			return self::$define_columns_cache;
+		}
+
 		$user_id = get_current_user_id();
 
 		$shipping_class = [];
@@ -236,6 +241,23 @@ class Data {
 			'download_expiry' => [ 'type' => 'number', 'allowEmpty' => true, 'width' => 90, 'title' => esc_html__( 'Download expiry', 'bulky-bulk-edit-products-for-woo' ), 'mask' => "###", ]
 		];
 
+		if ( self::is_cost_of_goods_sold_enabled() && method_exists( \WC_Product::class, 'get_cogs_value' ) ) {
+			$column_keys         = array_keys( $columns );
+			$sale_price_position = array_search( 'sale_price', $column_keys, true );
+			if ( false !== $sale_price_position ) {
+				$insert_at = $sale_price_position + 1;
+				$columns   = array_slice( $columns, 0, $insert_at, true ) + [
+					'cost_of_goods' => [
+						'type'       => 'number',
+						'width'      => 110,
+						'title'      => esc_html__( 'Cost of goods', 'bulky-bulk-edit-products-for-woo' ) . sprintf( ' (%s)', esc_html( $currency ) ),
+						'mask'       => $curency_format,
+						'allowEmpty' => true,
+					],
+				] + array_slice( $columns, $insert_at, null, true );
+			}
+		}
+
 		$tax_columns = [];
 		if ( wc_tax_enabled() ) {
 			$tax_columns = [
@@ -349,6 +371,8 @@ class Data {
 				}
 			}
 		}
+
+		self::$define_columns_cache = $columns;
 
 		return $columns;
 	}
@@ -487,10 +511,19 @@ class Data {
 	}
 
 	public function get_categories( $select2 = false ) {
+		static $categories_tree = null;
+
+		if ( null !== $categories_tree && isset( $categories_tree[ (int) $select2 ] ) ) {
+			return $categories_tree[ (int) $select2 ];
+		}
+
 		$categories = get_categories( array( 'taxonomy' => 'product_cat', 'hide_empty' => false ) );
 		$categories = json_decode( wp_json_encode( $categories ), true );
 
-		return $select2 ? $this->build_select2_categories_tree( $categories, 0 ) : $this->build_dropsown_categories_tree( $categories, 0 );
+		$result = $select2 ? $this->build_select2_categories_tree( $categories, 0 ) : $this->build_dropsown_categories_tree( $categories, 0 );
+		$categories_tree[ (int) $select2 ] = $result;
+
+		return $result;
 	}
 
 	private function build_dropsown_categories_tree( $all_cats, $parent_cat, $level = 1 ) {
@@ -539,6 +572,27 @@ class Data {
 			return wp_kses_post( $var );
 		} else {
 			return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
+		}
+	}
+
+	/**
+	 * Whether WooCommerce Cost of Goods Sold feature is enabled (Settings > Advanced > Features).
+	 */
+	public static function is_cost_of_goods_sold_enabled(): bool {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return \Automattic\WooCommerce\Utilities\FeaturesUtil::feature_is_enabled( 'cost_of_goods_sold' );
+		}
+
+		if ( ! function_exists( 'wc_get_container' ) ) {
+			return false;
+		}
+
+		try {
+			$controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\Features\FeaturesController::class );
+
+			return $controller && $controller->feature_is_enabled( 'cost_of_goods_sold' );
+		} catch ( \Throwable $e ) {
+			return false;
 		}
 	}
 }

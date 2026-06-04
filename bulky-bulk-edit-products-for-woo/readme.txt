@@ -4,8 +4,8 @@ Donate link: http://www.villatheme.com/donate
 Tags:  bulk edit products, ecommerce, woocommerce
 Requires PHP: 7.0
 Requires at least: 5.0
-Tested up to: 6.9
-WC tested up to: 10.4
+Tested up to: 7.0
+WC tested up to: 10.8
 Stable tag: trunk
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -288,6 +288,10 @@ You can bulk edit/update product properties including
 6. Bulk edit reviews page
 
 == Changelog ==
+/** 1.3.0 - 2026.06.04 **/
+- Added: Include a 'Cost of goods' column on the bulk edit products page
+- Updated: Compatible with WP 7.0 and WC 10.8
+
 /** 1.2.17 - 2026.01.23 **/
 - Updated: VillaTheme support
 

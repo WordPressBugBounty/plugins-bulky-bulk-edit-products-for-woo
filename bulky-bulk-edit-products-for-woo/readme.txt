@@ -288,6 +288,9 @@ You can bulk edit/update product properties including
 6. Bulk edit reviews page
 
 == Changelog ==
+/** 1.3.1 - 2026.06.19 **/
+- Updated: VillaTheme support
+
 /** 1.3.0 - 2026.06.04 **/
 - Added: Include a 'Cost of goods' column on the bulk edit products page
 - Updated: Compatible with WP 7.0 and WC 10.8

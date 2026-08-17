@@ -3,7 +3,7 @@
  * Plugin Name: Bulky - Bulk Edit Products for WooCommerce
  * Plugin URI: https://villatheme.com/extensions/bulky-woocommerce-bulk-edit-products/
  * Description: A helpful tool that allows you to bulk edit available attributes of products such as ID, Title, Content,...
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: VillaTheme
  * Author URI: https://villatheme.com
  * License: GPL v2 or later
@@ -15,7 +15,7 @@
  * Requires at least: 5.0
  * Tested up to: 7.0
  * WC requires at least: 7.0
- * WC tested up to: 10.8
+ * WC tested up to: 11.0
  * Requires PHP: 7.0
  **/
 
@@ -46,7 +46,7 @@ if ( ! is_plugin_active( 'bulky-woocommerce-bulk-edit-products/bulky-woocommerce
 	class  WooCommerce_Products_Bulk_Editor_F {
 		public $plugin_name = 'Bulky - Bulk Edit Products for WooCommerce';
 
-		public $version = '1.3.1';
+		public $version = '1.3.2';
 
 		public $conditional = '';
 
@@ -79,7 +79,7 @@ if ( ! is_plugin_active( 'bulky-woocommerce-bulk-edit-products/bulky-woocommerce
 				'libs_url'     => plugins_url( 'assets/libs/', __FILE__ ),
 				'img_url'      => plugins_url( 'assets/img/', __FILE__ ),
 				'capability'   => 'manage_woocommerce',
-				'pro_url'      => 'https://1.envato.market/vn4ZEA',
+				'pro_url'      => 'https://villatheme.com/extensions/bulky-woocommerce-bulk-edit-products/',
 			] );
 		}
 

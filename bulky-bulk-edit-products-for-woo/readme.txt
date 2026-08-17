@@ -3,9 +3,10 @@ Contributors: villatheme, mrt3vn
 Donate link: http://www.villatheme.com/donate
 Tags:  bulk edit products, ecommerce, woocommerce
 Requires PHP: 7.0
+WC requires at least: 7.0
 Requires at least: 5.0
 Tested up to: 7.0
-WC tested up to: 10.8
+WC tested up to: 11.0
 Stable tag: trunk
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +20,7 @@ Bulk edit products seem to be an effective and modern method to speed up modifyi
 Bulky – Bulk Edit Products for WooCommerce helps easily work with products in bulk.  Particularly, the plugin offers sufficient simple and advanced tools to help filter various available attributes of simple and variable products such as ID, Title, Content, Excerpt, Slugs, SKU, Post date, range of regular price and sale price, Sale date, range of stock quantity, Product type, Categories…
 Therefore, users can quickly search for wanted products fields and work with them in bulk. In short, the plugin promises to help shop owners to save time and optimize manipulation when working with products in bulk. You can bulk edit orders and coupons in the same way.
 
->[Try the Demo](https://new2new.com/?item=bulky-woocommerce-bulk-edit-products "Demo Bulky - Bulk Edit Products for WooCommerce") | [Documents](https://docs.villatheme.com/?item=bulky-woocommerce-bulk-edit-products "Documents") | [Pro Version](https://1.envato.market/vn4ZEA "Pro Version") | [Facebook group](https://www.facebook.com/groups/villatheme "VillaTheme")
+>[Try the Demo](https://new2new.com/?item=bulky-woocommerce-bulk-edit-products "Demo Bulky - Bulk Edit Products for WooCommerce") | [Documents](https://docs.villatheme.com/?item=bulky-woocommerce-bulk-edit-products "Documents") | [Pro Version](https://villatheme.com/extensions/bulky-woocommerce-bulk-edit-products/ "Pro Version") | [Facebook group](https://www.facebook.com/groups/villatheme "VillaTheme")
 
 ###Preview
 [youtube https://youtu.be/_9XRvbMyNPA]
@@ -274,8 +275,8 @@ You can bulk edit/update product properties including
 == Installation ==
 
 1. Unzip the download package
-1. Upload `bulky-bulk-edit-products-for-woo` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
+2. Upload `bulky-bulk-edit-products-for-woo` to the `/wp-content/plugins/` directory
+3. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
 
@@ -288,173 +289,176 @@ You can bulk edit/update product properties including
 6. Bulk edit reviews page
 
 == Changelog ==
-/** 1.3.1 - 2026.06.19 **/
+2026.08.17 - version 1.3.2
+- Updated: Change premium version url
+
+2026.06.19 - version 1.3.1
 - Updated: VillaTheme support
 
-/** 1.3.0 - 2026.06.04 **/
+2026.06.04 - version 1.3.0
 - Added: Include a 'Cost of goods' column on the bulk edit products page
 - Updated: Compatible with WP 7.0 and WC 10.8
 
-/** 1.2.17 - 2026.01.23 **/
+2026.01.23 - version 1.2.17
 - Updated: VillaTheme support
 
-/** 1.2.16 - 2025.11.15 **/
+2025.11.15 - version 1.2.16
 - Updated: Show a warning message if the regular price field exists and the entered value is invalid when updating the sale price field.
 
-/** 1.2.15 - 2025.10.30 **/
+2025.10.30 - version 1.2.15
 - Updated: VillaTheme support
 
-/** 1.2.14 - 2025.10.29 **/
+2025.10.29 - version 1.2.14
 - Updated: VillaTheme support
 
-/** 1.2.13 - 2025.09.18 **/
+2025.09.18 - version 1.2.13
 - Added: Include a 'GTIN, UPC, EAN, or ISBN' column on the bulk edit products page
 - Updated: Compatible with VARGAL - Additional Variation Gallery for Woo
 
-/** 1.2.12 - 2025.07.24 **/
+2025.07.24 - version 1.2.12
 - Updated: VillaTheme support
 
-/** 1.2.11 - 2025.03.26 **/
+2025.03.26 - version 1.2.11
 - Updated: Close the sidebar after saving settings or filter
 
-/** 1.2.10- 2025.01.20 **/
+2025.01.20 - version 1.2.10
 – Fixed: Settings for each user
 - Updated: VillaTheme support
 
-/** 1.2.9 - 2024.12.28**/
+2024.12.28 - version 1.2.9
 - Fixed: Can not save edited content sometimes
 
-/** 1.2.8 - 2024.11.23**/
+2024.11.23 - version 1.2.8
 - Updated: Compatible with WC 9.4 and WP 6.7
 - Fixed: Errors from customers' feedback
 
-/** 1.2.7 - 2024.10.11**/
+2024.10.11 - version 1.2.7
 - Updated: Retain newline characters in attribute value
 - Updated: Compatible with WP 6.6 and PHP 8.1 and WC 9.3
 - Fixed: Filter stock status for variation
 - Fixed: Save data
 
-/** 1.2.6 - 2024.07.18 **/
+2024.07.18 - version 1.2.6
 - Fixed: Errors of function add attributes to products
 - Fixed: Automatically create slug when not duplicated
 
-/** 1.2.5 - 2024.06.06 **/
+2024.06.06 - version 1.2.5
 - Fixed: Clear data after closed text editor
 
-/** 1.2.4 - 2024.06.01 **/
+2024.06.01 - version 1.2.4
 - Fixed: Get global attribute
 
-/** 1.2.3 - 2024.05.28 **/
+2024.05.28 - version 1.2.3
 - Updated: Remove unused files
 
-/** 1.2.2 - 2024.05.27 **/
+2024.05.27 - version 1.2.2
 – Fixed: Product information copied incorrectly, generate slug for copied products
 - Updated: Save column width
 - Updated: Update security
 
-/** 1.2.1 - 2024.05.06 **/
+2024.05.06 - version 1.2.1
 – Fixed: Sort when paging
 
-/** 1.2.0 - 2024.04.13 **/
+2024.04.13 - version 1.2.0
 - Fixed: External link in wp editor
 – Updated: Compatible with wp 6.5
 - Updated: Update file support
 
-/** 1.1.9 - 2024.03.18 **/
+2024.03.18 - version 1.1.9
 – Update: Settings for each user
 
-/** 1.1.8 - 2024.02.22 **/
+2024.02.22 - version 1.1.8
 – Fix: Filter with option "Filter include variation"
 
-/** 1.1.7 - 2024.01.04 **/
+2024.01.04 - version 1.1.7
 – Fix: Retrieve the "default attribute" column when choosing the "Attribute" option
 
-/** 1.1.6 - 2023.11.29 **/
+2023.11.29 - version 1.1.6
 – Fixed: Set sale date to
 
-/** 1.1.5 - 2023.10.07 **/
+2023.10.07 - version 1.1.5
 – Added: Filter multiple SKU with comma separate
 – Fixed: Sort by SKU
 
-/** 1.1.4 - 2023.07.03 **/
+2023.07.03 - version 1.1.4
 – Updated: Compatible with WooCommerce HPOS(COT)
 
-/** 1.1.3 - 2023.06.02 **/
+2023.06.02 - version 1.1.3
 - Fix: Cannot save after add new product
 
-/** 1.1.2 - 2023.04.28 **/
+2023.04.28 - version 1.1.2
 - Fix: DOMPurify exclude object
 
-/**1.1.1 - 2023.04.20**/
+2023.04.20 - version 1.1.1
 - Fix: Load product to editor
 
-/** 1.1.0 - 2023.04.19**/
+2023.04.19 - version 1.1.0
 - Fix: Validate input data
 - Update: Check compatible with WordPress 6.2
 
-/**1.0.17 - 2022.11.23**/
+2022.11.23 - version 1.0.17
 – Fixed: Remove dequeue scripts function
 
-/**1.0.16 - 2022.09.27**/
+2022.09.27 - version 1.0.16
 – Fixed: Filter by author
 
-/**1.0.15 - 2022.06.29**/
+2022.06.29 - version 1.0.15
 - Update: Filter include variation option
 
-/**1.0.14 - 2022.06.07**/
+2022.06.07 - version 1.0.14
 - Update: Compatible with WordPress 6.0
 
-/** 1.0.13 - 2022.05.30 **/
+2022.05.30 - version 1.0.13
 – Fixed: SKU is removed when filter edit fields
 
-/** 1.0.12 - 2022.05.25 **/
+2022.05.25 - version 1.0.12
 – Updated: Unlimit number of decimal for Currency column
 
-/** 1.0.11 - 2022.03.29 **/
+2022.03.29 - version 1.0.11
 – Updated: VillaTheme_Support
 
-/** 1.0.9 - 2022.01.15 **/
+2022.01.15 - version 1.0.9
 -Fix: Add new button
 
-/** 1.0.8 - 2022.01.03 **/
+2022.01.03 - version 1.0.8
 -Fix: change numeric type to number type
 
-/** 1.0.7 - 2021.12.28 **/
+2021.12.28 - version 1.0.7
 -Fix: Add image to gallery
 
-/** 1.0.6 - 2021.11.20 **/
+2021.11.20 - version 1.0.6
 -Fix: Display product variation name
 
-/** 1.0.5 - 2021.09.02 **/
+2021.09.02 - version 1.0.5
 -Fix: Copy cell is object
 -Fix: Use for variation not save
 -Update: Edit publish date
 -Update: Edit multiple calendar cells
 -Update: Delete cell content when select column
 
-/** 1.0.4.2 - 2021.08.21 **/
+2021.08.21 - version 1.0.4.2
 -Fix: Clear tags, upsell, cross-sell
 
-/** 1.0.4.1 - 2021.08.20 **/
+2021.08.20 - version 1.0.4.1
 -Fix: Gallery column
 
-/** 1.0.4 - 2021.08.19 **/
+2021.08.19 - version 1.0.4
 -Fix: Scroll bar not working after close select upsell/cross-sell column
 -Fix: Curency format
 -Update: Duplicate product
 
-/** 1.0.3 - 2021.08.16 **/
+2021.08.16 - version 1.0.3
 -Fixed: Undo for texteditor column type
 
-/** 1.0.2 - 2021.08.07 **/
+2021.08.07 - version 1.0.2
 -Fixed: Close image cell
 -Fixed: Check image url contain some special character
 -Fixed: urldecode slug
 
-/** 1.0.1 - 2021.08.02 **/
+2021.08.02 - version 1.0.1
 -Update: Link to Premium version
 
-/** 1.0.0 - 2021.07.23 **/
+2021.07.23 - version 1.0.0
 ~ The first released.
 
 == Upgrade Notice ==

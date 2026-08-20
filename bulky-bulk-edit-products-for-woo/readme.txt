@@ -5,7 +5,7 @@ Tags:  bulk edit products, ecommerce, woocommerce
 Requires PHP: 7.0
 WC requires at least: 7.0
 Requires at least: 5.0
-Tested up to: 7.0
+Tested up to: 7.1
 WC tested up to: 11.0
 Stable tag: trunk
 License: GPL v2 or later
@@ -289,6 +289,10 @@ You can bulk edit/update product properties including
 6. Bulk edit reviews page
 
 == Changelog ==
+2026.08.20 - version 1.3.3
+- Updated: Compatible with WP 7.1
+- Updated: Compatibility check with WC 11.0
+
 2026.08.17 - version 1.3.2
 - Updated: Change premium version url
 

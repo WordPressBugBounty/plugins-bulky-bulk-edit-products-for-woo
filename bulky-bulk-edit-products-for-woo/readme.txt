@@ -2,7 +2,7 @@
 Contributors: villatheme, mrt3vn
 Donate link: http://www.villatheme.com/donate
 Tags:  bulk edit products, ecommerce, woocommerce
-Requires PHP: 7.0
+Requires PHP: 7.4
 WC requires at least: 7.0
 Requires at least: 5.0
 Tested up to: 7.1
@@ -289,6 +289,9 @@ You can bulk edit/update product properties including
 6. Bulk edit reviews page
 
 == Changelog ==
+2026.09.18- version 1.3.4
+- Fixed: Compatibility issues with PHP 8+
+
 2026.08.20 - version 1.3.3
 - Updated: Compatible with WP 7.1
 - Updated: Compatibility check with WC 11.0
